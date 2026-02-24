@@ -13,7 +13,6 @@ cache:
 
 before_script:
   - python --version
-  - pip install --upgrade pip
   - pip install -r requirements.txt
 
 api_tests:
