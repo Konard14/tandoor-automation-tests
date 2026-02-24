@@ -1,0 +1,46 @@
+image: python:3.13
+
+stages:
+  - test
+  - report
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+cache:
+  paths:
+    - .cache/pip
+
+before_script:
+  - python --version
+  - pip install --upgrade pip
+  - pip install -r requirements.txt
+
+api_tests:
+  stage: test
+  script:
+    - pytest -m api --alluredir=allure-results
+  artifacts:
+    when: always
+    paths:
+      - allure-results
+
+ui_tests:
+  stage: test
+  script:
+    - pytest -m ui --alluredir=allure-results
+  artifacts:
+    when: always
+    paths:
+      - allure-results
+
+generate_report:
+  stage: report
+  image: frankescobar/allure-docker-service
+  script:
+    - allure generate allure-results -o public
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
