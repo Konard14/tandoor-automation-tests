@@ -1,6 +1,9 @@
 import pytest
 from api.client import TandoorAPIClient
 
+# Маркируем ВСЕ тесты в этом файле как "api"
+pytestmark = pytest.mark.api
+
 
 def test_get_recipes(api_client: TandoorAPIClient):
     response = api_client.get_recipes(page_size=5)
