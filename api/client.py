@@ -124,6 +124,13 @@ class TandoorAPIClient:
         # Создание рецепта — POST /api/recipe/
         return self._request("POST", "recipe/", json=data, expected_status=[200, 201])
 
+    def delete_recipe(self, recipe_id: int) -> None:
+        return self._request(
+            "DELETE",
+            f"recipe/{recipe_id}/",
+            expected_status=[204],
+        )
+
     def test_connection(self) -> None:
         print("Checking API connection...")
         data = self.get_recipes(page_size=1)
