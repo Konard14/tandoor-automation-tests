@@ -5,8 +5,7 @@ from dotenv import load_dotenv
 from api.client import TandoorAPIClient
 
 from selenium import webdriver
-from selenium.webdriver.firefox.service import Service as FirefoxService
-
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
 load_dotenv()
 
@@ -18,9 +17,13 @@ def api_client() -> TandoorAPIClient:
         token=os.getenv("TANDOOR_TOKEN"),
     )
 
+
 @pytest.fixture
 def driver():
-    driver = webdriver.Firefox()
-    driver.maximize_window()
+    options = FirefoxOptions()
+    options.add_argument("-headless")
+
+    driver = webdriver.Firefox(options=options)
+    driver.set_window_size(1920, 1080)
     yield driver
     driver.quit()

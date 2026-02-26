@@ -26,6 +26,11 @@ api_tests:
 
 ui_tests:
   stage: test
+  before_script:
+    - apt-get update
+    - apt-get install -y firefox-esr geckodriver
+    - python --version
+    - pip install -r requirements.txt
   script:
     - pytest -m ui --alluredir=allure-results
   artifacts:
@@ -36,9 +41,15 @@ ui_tests:
 generate_report:
   stage: report
   image: frankescobar/allure-docker-service
+  needs:
+    - job: api_tests
+      artifacts: true
+    - job: ui_tests
+      artifacts: true
   script:
     - allure generate allure-results -o public
   artifacts:
+    when: always
     paths:
       - public
   only:
