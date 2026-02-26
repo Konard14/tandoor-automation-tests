@@ -6,6 +6,8 @@ stages:
 
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  # чтобы headless браузер не ругался в контейнере
+  MOZ_HEADLESS: "1"
 
 cache:
   paths:
@@ -28,7 +30,15 @@ ui_tests:
   stage: test
   before_script:
     - apt-get update
-    - apt-get install -y firefox-esr geckodriver
+    - apt-get install -y --no-install-recommends firefox-esr wget ca-certificates bzip2
+    # ставим geckodriver вручную
+    - GECKO_VERSION="0.35.0"
+    - wget -q "https://github.com/mozilla/geckodriver/releases/download/v${GECKO_VERSION}/geckodriver-v${GECKO_VERSION}-linux64.tar.gz"
+    - tar -xzf "geckodriver-v${GECKO_VERSION}-linux64.tar.gz"
+    - chmod +x geckodriver
+    - mv geckodriver /usr/local/bin/geckodriver
+    - geckodriver --version
+    - firefox --version
     - python --version
     - pip install -r requirements.txt
   script:
