@@ -6,31 +6,29 @@ stages:
 
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
-  # чтобы headless браузер не ругался в контейнере
   MOZ_HEADLESS: "1"
 
 cache:
   paths:
     - .cache/pip
 
-before_script:
-  - python --version
-  - pip install -r requirements.txt
-
 api_tests:
   stage: test
+  before_script:
+    - python --version
+    - pip install -r requirements.txt
   script:
-    - pytest -m api --alluredir=allure-results
+    - pytest -m api --alluredir=allure-results/api
   artifacts:
     when: always
     paths:
-      - allure-results
+      - allure-results/api
 
 ui_tests:
   stage: test
   before_script:
     - apt-get update
-    - apt-get install -y --no-install-recommends firefox-esr wget ca-certificates tar
+    - apt-get install -y --no-install-recommends firefox-esr wget ca-certificates bzip2
     # ставим geckodriver вручную
     - GECKO_VERSION="0.35.0"
     - wget -q "https://github.com/mozilla/geckodriver/releases/download/v${GECKO_VERSION}/geckodriver-v${GECKO_VERSION}-linux64.tar.gz"
@@ -42,11 +40,11 @@ ui_tests:
     - python --version
     - pip install -r requirements.txt
   script:
-    - pytest -m ui --alluredir=allure-results
+    - pytest -m ui --alluredir=allure-results/ui
   artifacts:
     when: always
     paths:
-      - allure-results
+      - allure-results/ui
 
 generate_report:
   stage: report
@@ -56,8 +54,13 @@ generate_report:
       artifacts: true
     - job: ui_tests
       artifacts: true
+  before_script: []   # ВАЖНО: отключаем python/pip команды
   script:
-    - allure generate allure-results -o public
+    - allure --version
+    - mkdir -p merged-results
+    - cp -r allure-results/api/* merged-results/ 2>/dev/null || true
+    - cp -r allure-results/ui/* merged-results/ 2>/dev/null || true
+    - allure generate merged-results -o public --clean
   artifacts:
     when: always
     paths:
