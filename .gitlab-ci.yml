@@ -30,7 +30,7 @@ ui_tests:
   stage: test
   before_script:
     - apt-get update
-    - apt-get install -y --no-install-recommends firefox-esr wget ca-certificates bzip2
+    - apt-get install -y --no-install-recommends firefox-esr wget ca-certificates tar
     # ставим geckodriver вручную
     - GECKO_VERSION="0.35.0"
     - wget -q "https://github.com/mozilla/geckodriver/releases/download/v${GECKO_VERSION}/geckodriver-v${GECKO_VERSION}-linux64.tar.gz"
