@@ -2,7 +2,7 @@ image: python:3.13
 
 stages:
   - test
-  - report
+  - deploy
 
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
@@ -29,8 +29,7 @@ ui_tests:
   stage: test
   before_script:
     - apt-get update
-    - apt-get install -y --no-install-recommends firefox-esr wget ca-certificates bzip2 tar
-    # ставим geckodriver вручную (стабильно для Debian trixie)
+    - apt-get install -y --no-install-recommends firefox-esr wget ca-certificates bzip2
     - GECKO_VERSION="0.35.0"
     - wget -q "https://github.com/mozilla/geckodriver/releases/download/v${GECKO_VERSION}/geckodriver-v${GECKO_VERSION}-linux64.tar.gz"
     - tar -xzf "geckodriver-v${GECKO_VERSION}-linux64.tar.gz"
@@ -47,19 +46,17 @@ ui_tests:
     paths:
       - allure-results/ui
 
-# ВАЖНО: GitLab Pages публикуются только через job с именем "pages"
 pages:
-  stage: report
+  stage: deploy
   image: frankescobar/allure-docker-service
+  before_script: []   # <-- ВАЖНО: отключаем общий before_script с python
   needs:
     - job: api_tests
       artifacts: true
     - job: ui_tests
       artifacts: true
   script:
-    # в этом image нет python, поэтому НИКАКИХ "python --version" тут не пишем
-    - allure --version
-    - allure generate allure-results -o public
+    - allure generate allure-results/api allure-results/ui -o public
   artifacts:
     when: always
     paths:
