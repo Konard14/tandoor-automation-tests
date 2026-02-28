@@ -12,11 +12,12 @@ cache:
   paths:
     - .cache/pip
 
+before_script:
+  - python --version
+  - pip install -r requirements.txt
+
 api_tests:
   stage: test
-  before_script:
-    - python --version
-    - pip install -r requirements.txt
   script:
     - pytest -m api --alluredir=allure-results/api
   artifacts:
@@ -28,8 +29,8 @@ ui_tests:
   stage: test
   before_script:
     - apt-get update
-    - apt-get install -y --no-install-recommends firefox-esr wget ca-certificates bzip2
-    # ставим geckodriver вручную
+    - apt-get install -y --no-install-recommends firefox-esr wget ca-certificates bzip2 tar
+    # ставим geckodriver вручную (стабильно для Debian trixie)
     - GECKO_VERSION="0.35.0"
     - wget -q "https://github.com/mozilla/geckodriver/releases/download/v${GECKO_VERSION}/geckodriver-v${GECKO_VERSION}-linux64.tar.gz"
     - tar -xzf "geckodriver-v${GECKO_VERSION}-linux64.tar.gz"
@@ -46,7 +47,8 @@ ui_tests:
     paths:
       - allure-results/ui
 
-generate_report:
+# ВАЖНО: GitLab Pages публикуются только через job с именем "pages"
+pages:
   stage: report
   image: frankescobar/allure-docker-service
   needs:
@@ -54,16 +56,13 @@ generate_report:
       artifacts: true
     - job: ui_tests
       artifacts: true
-  before_script: []   # ВАЖНО: отключаем python/pip команды
   script:
+    # в этом image нет python, поэтому НИКАКИХ "python --version" тут не пишем
     - allure --version
-    - mkdir -p merged-results
-    - cp -r allure-results/api/* merged-results/ 2>/dev/null || true
-    - cp -r allure-results/ui/* merged-results/ 2>/dev/null || true
-    - allure generate merged-results -o public --clean
+    - allure generate allure-results -o public
   artifacts:
     when: always
     paths:
       - public
-  only:
-    - main
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
