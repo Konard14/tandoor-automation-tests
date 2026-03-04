@@ -1,0 +1,608 @@
+<html lang="ru" style="" class=""><head>
+    <title>Планирование блюд</title>
+    <meta name="description" content="Tandoor Recipe Manager">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, minimal-ui, shrink-to-fit=no">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <link rel="manifest" crossorigin="use-credentials" href="/manifest.json">
+
+    <link rel="icon" href="/static/assets/logo_color_svg.d7c2e31a63b7.svg">
+    <link rel="icon" href="/static/assets/logo_color_32.b7d9707eac91.png" sizes="32x32">
+    <link rel="icon" href="/static/assets/logo_color_128.a90db52449d9.png" sizes="128x128">
+    <link rel="icon" href="/static/assets/logo_color_192.c9b9177ff941.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="/static/assets/logo_color_180.0fcae5e85a72.png" sizes="180x180">
+
+    <meta name="msapplication-TileColor" content="#ddbf86">
+    <meta name="msapplication-TileImage" content="/static/assets/logo_color_144.f09537dbf142.png">
+
+    <meta name="theme-color" content="#ddbf86">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    
+
+    <style>
+        
+    </style>
+
+<style type="text/css">.op-icon.dropdown-wrapper.dropdown[data-v-218640b4]{position:relative}.op-icon.dropdown-wrapper.dropdown[type=button][data-v-218640b4]{-webkit-appearance:unset}.op-icon.dropdown-wrapper.dropdown .popup-dropdown[data-v-218640b4]{position:absolute;display:block;background:#fff;top:32px;left:-45px;min-width:130px;z-index:1600;border:1px solid #ebeef5;border-radius:4px;box-shadow:0 2px 12px 0 rgba(0,0,0,0.1)}.op-icon.dropdown-wrapper.dropdown .popup-dropdown .dropdown-item[data-v-218640b4]:first-child{border-top-left-radius:3px;border-top-right-radius:3px}.op-icon.dropdown-wrapper.dropdown .popup-dropdown .dropdown-item[data-v-218640b4]:last-child{border-bottom-left-radius:3px;border-bottom-right-radius:3px}.op-icon.dropdown-wrapper.dropdown .popup-dropdown.op-header[data-v-218640b4]{left:-30px;min-width:90px}.op-icon.dropdown-wrapper.dropdown .popup-dropdown.fade-enter-active[data-v-218640b4],.op-icon.dropdown-wrapper.dropdown .popup-dropdown.fade-leave-active[data-v-218640b4]{opacity:1}.op-icon.dropdown-wrapper.dropdown .popup-dropdown.fade-enter[data-v-218640b4],.op-icon.dropdown-wrapper.dropdown .popup-dropdown.fade-leave-active[data-v-218640b4]{opacity:0}.op-icon.dropdown-wrapper.dropdown .popup-dropdown.transition[data-v-218640b4],.op-icon.dropdown-wrapper.dropdown .popup-dropdown.transition .dropdown-item[data-v-218640b4]{transition:all .2s linear 0s}.op-icon.dropdown-wrapper.dropdown .dropdown-item[data-v-218640b4]{height:40px;line-height:40px;font-size:14px;color:#606266;position:relative}.op-icon.dropdown-wrapper.dropdown .dropdown-item[data-v-218640b4]:hover{color:#303133;background-color:#e9e9eb}.op-icon.dropdown-wrapper.dropdown .dropdown-item input[data-v-218640b4]{position:absolute;font-size:100px;right:0;top:0;opacity:0;cursor:pointer}.op-icon.dropdown-wrapper.dropdown .dropdown-images[data-v-218640b4]{box-sizing:border-box}.op-icon.dropdown-wrapper.dropdown .dropdown-images button[data-v-218640b4]{position:absolute;top:-1px;right:5px;font-size:14px}.op-icon.dropdown-wrapper.dropdown .dropdown-images button[data-v-218640b4]:hover{color:#f56c6c;background-color:transparent}.op-icon.dropdown-wrapper.dropdown .dropdown-images span[data-v-218640b4]{display:inline-block;width:80px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.op-icon.dropdown-wrapper.dropdown .dropdown-images:hover .image-show[data-v-218640b4]{display:block !important}.op-icon.dropdown-wrapper.dropdown .dropdown-images .image-show[data-v-218640b4]{display:none;position:absolute;left:-128px;top:0;width:120px;height:90px;object-fit:contain;border:1px solid #f2f6fc}.op-icon.dropdown-wrapper.dropdown .dropdown-images .image-show.transition[data-v-218640b4]{transition:all .2s linear 0s}.op-icon.dropdown-wrapper.dropdown .dropdown-images.transition[data-v-218640b4]{transition:all .2s linear 0s}.add-image-link-wrapper[data-v-218640b4]{position:fixed;left:0;right:0;top:0;bottom:0;background:rgba(0,0,0,0.7);z-index:1600;transition:all .1s linear 0s}.add-image-link-wrapper.fade-enter-active[data-v-218640b4],.add-image-link-wrapper.fade-leave-active[data-v-218640b4]{opacity:1}.add-image-link-wrapper.fade-enter[data-v-218640b4],.add-image-link-wrapper.fade-leave-active[data-v-218640b4]{opacity:0}.add-image-link-wrapper .add-image-link[data-v-218640b4]{position:fixed;box-sizing:border-box;text-align:center;width:24%;left:38%;height:auto;padding:40px;top:25%;transition:all .1s linear 0s;z-index:3;background:#fff;border-radius:2px}@media only screen and (max-width:1500px){.add-image-link-wrapper .add-image-link[data-v-218640b4]{width:34%;left:33%}}@media only screen and (max-width:1000px){.add-image-link-wrapper .add-image-link[data-v-218640b4]{width:50%;left:25%}}@media only screen and (max-width:600px){.add-image-link-wrapper .add-image-link[data-v-218640b4]{width:80%;left:10%}}.add-image-link-wrapper .add-image-link i[data-v-218640b4]{font-size:24px;position:absolute;right:8px;top:6px;color:rgba(0,0,0,0.7);cursor:pointer}.add-image-link-wrapper .add-image-link .title[data-v-218640b4]{font-size:20px;margin-bottom:30px;margin-top:10px;font-weight:500 !important}.add-image-link-wrapper .add-image-link .input-wrapper[data-v-218640b4]{margin-top:10px;width:80%;border:1px solid #eeece8;text-align:left;margin-left:10%;height:35px}.add-image-link-wrapper .add-image-link .input-wrapper input[data-v-218640b4]{height:32px;line-height:32px;font-size:15px;width:90%;margin-left:8px;border:none;outline:none}.add-image-link-wrapper .add-image-link .op-btn[data-v-218640b4]{width:100px;height:35px;display:inline-block;margin-top:30px;cursor:pointer;text-align:center;line-height:35px;opacity:.9;border-radius:2px;letter-spacing:1px;font-size:15px}.add-image-link-wrapper .add-image-link .op-btn.sure[data-v-218640b4]{background:#2185d0;color:#fff;margin-left:5%}.add-image-link-wrapper .add-image-link .op-btn.sure[data-v-218640b4]:hover{opacity:1}.add-image-link-wrapper .add-image-link .op-btn.cancel[data-v-218640b4]{border:1px solid #bcbcbc;color:#bcbcbc}.add-image-link-wrapper .add-image-link .op-btn.cancel[data-v-218640b4]:hover{color:#000}</style><style type="text/css">.auto-textarea-wrapper{position:relative;width:100%;margin:0;padding:0;line-height:normal}.auto-textarea-wrapper .auto-textarea-block{display:block;white-space:pre-wrap;word-wrap:break-word !important;visibility:hidden;overflow:hidden;margin:0;padding:0;box-sizing:border-box;font-size:100%}.auto-textarea-wrapper .auto-textarea-input{font-family:Menlo,"Ubuntu Mono",Consolas,"Courier New","Microsoft Yahei","Hiragino Sans GB","WenQuanYi Micro Hei",sans-serif;position:absolute;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow-y:hidden;color:#2c3e50}.auto-textarea-wrapper .auto-textarea-input.no-border{outline:0 none;border:none !important}.auto-textarea-wrapper .auto-textarea-input.no-resize{resize:none}</style><style type="text/css">textarea:disabled{background-color:#fff}.v-note-wrapper{position:relative;min-width:300px;min-height:300px;display:flex;flex-direction:column;background-color:#fff;z-index:1500;text-align:left;border:1px solid #f2f6fc;border-radius:4px}.v-note-wrapper.fullscreen{position:fixed;left:0;right:0;bottom:0;top:0;margin:0;height:auto;z-index:1501}.v-note-wrapper .v-note-op{padding:1px;width:100%;display:flex;white-space:pre-line;flex:none;min-height:40px;user-select:none;border-bottom:1px solid #f2f6fc;border-radius:4px 4px 0 0;background-color:#fff;z-index:1}.v-note-wrapper .v-note-op .v-left-item,.v-note-wrapper .v-note-op .v-right-item{flex:1;min-height:40px;box-sizing:border-box}.v-note-wrapper .v-note-op .v-left-item .op-icon-divider,.v-note-wrapper .v-note-op .v-right-item .op-icon-divider{height:40px;border-left:1px solid #e5e5e5;margin:0 6px 0 4px}.v-note-wrapper .v-note-op .v-left-item .op-icon,.v-note-wrapper .v-note-op .v-right-item .op-icon{box-sizing:border-box;display:inline-block;cursor:pointer;height:28px;width:28px;margin:6px 0 5px 0;font-size:14px;padding:4.5px 6px 5px 3.5px;color:#757575;border-radius:5px;text-align:center;background:none;border:none;outline:none;line-height:1}.v-note-wrapper .v-note-op .v-left-item .op-icon.dropdown-wrapper,.v-note-wrapper .v-note-op .v-right-item .op-icon.dropdown-wrapper{line-height:18px}.v-note-wrapper .v-note-op .v-left-item .op-icon.selected,.v-note-wrapper .v-note-op .v-right-item .op-icon.selected{color:rgba(0,0,0,0.8);background:#eaeaea}.v-note-wrapper .v-note-op .v-left-item .op-icon:hover,.v-note-wrapper .v-note-op .v-right-item .op-icon:hover{color:rgba(0,0,0,0.8);background:#e9e9eb}.v-note-wrapper .v-note-op .v-left-item.transition .op-icon,.v-note-wrapper .v-note-op .v-right-item.transition .op-icon{transition:all .2s linear 0s}.v-note-wrapper .v-note-op .v-right-item{text-align:right;padding-right:6px;max-width:30%}.v-note-wrapper .v-note-op .v-left-item{text-align:left;padding-left:6px}.v-note-wrapper .v-note-panel{position:relative;border-top:none;display:flex;flex:1;width:100%;box-sizing:border-box;overflow:hidden}.v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper{flex:0 0 50%;width:50%;padding:0;overflow-y:scroll;overflow-x:hidden;box-sizing:border-box;cursor:text;border-bottom-left-radius:4px}.v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper.scroll-style::-webkit-scrollbar{width:6px;background-color:#e5e5e5}.v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper.scroll-style::-webkit-scrollbar-thumb{background-color:#b7b7b7;border-radius:4px}.v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper.scroll-style::-webkit-scrollbar-thumb:hover{background-color:#a1a1a1}.v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper.scroll-style::-webkit-scrollbar-thumb:active{background-color:#a1a1a1}.v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper.scroll-style::-webkit-scrollbar-track{-webkit-box-shadow:0 0 0 #808080 inset}.v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper.scroll-style-border-radius::-webkit-scrollbar{border-bottom-right-radius:4px}.v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper.transition{transition:all .2s linear 0s}.v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper.single-edit{width:100%;flex:0 0 100%;overflow-y:auto}.v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper.single-show{width:0;flex:0 0 0;display:none}.v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper .content-div{width:100%;padding:20px 25px;box-sizing:border-box;outline:0 none;border:none !important;color:#2c3e50;font-size:16px}.v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper .content-input-wrapper{width:100%;padding:8px 25px 15px 25px}.v-note-wrapper .v-note-panel .v-note-show{flex:0 0 50%;width:50%;overflow-y:auto;padding:0 0;transition:all .2s linear 0s}.v-note-wrapper .v-note-panel .v-note-show.single-show{flex:0 0 100%;width:100%}.v-note-wrapper .v-note-panel .v-note-show .v-show-content,.v-note-wrapper .v-note-panel .v-note-show .v-show-content-html{width:100%;height:100%;padding:8px 25px 15px 25px;overflow-y:auto;box-sizing:border-box;overflow-x:hidden}.v-note-wrapper .v-note-panel .v-note-show .v-show-content.scroll-style::-webkit-scrollbar,.v-note-wrapper .v-note-panel .v-note-show .v-show-content-html.scroll-style::-webkit-scrollbar{width:6px;background-color:#e5e5e5}.v-note-wrapper .v-note-panel .v-note-show .v-show-content.scroll-style::-webkit-scrollbar-thumb,.v-note-wrapper .v-note-panel .v-note-show .v-show-content-html.scroll-style::-webkit-scrollbar-thumb{background-color:#b7b7b7;border-radius:4px}.v-note-wrapper .v-note-panel .v-note-show .v-show-content.scroll-style::-webkit-scrollbar-thumb:hover,.v-note-wrapper .v-note-panel .v-note-show .v-show-content-html.scroll-style::-webkit-scrollbar-thumb:hover{background-color:#a1a1a1}.v-note-wrapper .v-note-panel .v-note-show .v-show-content.scroll-style::-webkit-scrollbar-thumb:active,.v-note-wrapper .v-note-panel .v-note-show .v-show-content-html.scroll-style::-webkit-scrollbar-thumb:active{background-color:#a1a1a1}.v-note-wrapper .v-note-panel .v-note-show .v-show-content.scroll-style::-webkit-scrollbar-track,.v-note-wrapper .v-note-panel .v-note-show .v-show-content-html.scroll-style::-webkit-scrollbar-track{-webkit-box-shadow:0 0 0 #808080 inset}.v-note-wrapper .v-note-panel .v-note-show .v-show-content.scroll-style-border-radius::-webkit-scrollbar,.v-note-wrapper .v-note-panel .v-note-show .v-show-content-html.scroll-style-border-radius::-webkit-scrollbar{border-bottom-right-radius:4px}.v-note-wrapper .v-note-panel .v-note-navigation-wrapper{display:flex;position:absolute;width:250px;right:0;top:0;bottom:0;height:100%;flex-direction:column;background-color:rgba(255,255,255,0.98);border-left:1px solid #f2f6fc;border-right:1px solid #f2f6fc}.v-note-wrapper .v-note-panel .v-note-navigation-wrapper.transition{transition:all .1s linear 0s}@media only screen and (max-width:768px){.v-note-wrapper .v-note-panel .v-note-navigation-wrapper{width:50%}}.v-note-wrapper .v-note-panel .v-note-navigation-wrapper.slideTop-enter-active,.v-note-wrapper .v-note-panel .v-note-navigation-wrapper.slideTop-leave-active{height:100%}.v-note-wrapper .v-note-panel .v-note-navigation-wrapper.slideTop-enter,.v-note-wrapper .v-note-panel .v-note-navigation-wrapper.slideTop-leave-active{height:0}.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-title{height:50px;width:100%;border-bottom:1px solid #f2f6fc;flex:none;line-height:50px;font-size:16px;box-sizing:border-box;padding:0 12px 0 18px}.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-title .v-note-navigation-close{float:right;color:#606266;font-size:18px;cursor:pointer}.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-title .v-note-navigation-close:hover{color:#303133}.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content{overflow-y:auto;flex:1;padding:8px 0}.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content.scroll-style::-webkit-scrollbar{width:6px;background-color:#e5e5e5}.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content.scroll-style::-webkit-scrollbar-thumb{background-color:#b7b7b7;border-radius:4px}.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content.scroll-style::-webkit-scrollbar-thumb:hover{background-color:#a1a1a1}.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content.scroll-style::-webkit-scrollbar-thumb:active{background-color:#a1a1a1}.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content.scroll-style::-webkit-scrollbar-track{-webkit-box-shadow:0 0 0 #808080 inset}.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content.scroll-style-border-radius::-webkit-scrollbar{border-bottom-right-radius:4px}.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h1,.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h2,.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h3,.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h4,.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h5,.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h6{margin:2px 0;font-weight:500;font-size:17px;color:#2185d0;cursor:pointer;line-height:normal;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 12px;border-bottom:none}.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h1:hover,.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h2:hover,.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h3:hover,.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h4:hover,.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h5:hover,.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h6:hover{color:#483d8b;text-decoration-line:underline}.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h2{padding-left:27px;font-size:17px}.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h3{padding-left:42px;font-size:17px}.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h4{padding-left:58px;font-size:15px}.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h5{padding-left:72px;font-size:15px}.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h6{padding-left:87px;font-size:15px}.v-note-wrapper .v-note-read-model{position:relative;display:none;width:100%;height:100%;background:#fbfbfb;padding:30px 8% 50px 8%;overflow-y:auto;box-sizing:border-box}.v-note-wrapper .v-note-read-model.scroll-style::-webkit-scrollbar{width:6px;background-color:#e5e5e5}.v-note-wrapper .v-note-read-model.scroll-style::-webkit-scrollbar-thumb{background-color:#b7b7b7;border-radius:4px}.v-note-wrapper .v-note-read-model.scroll-style::-webkit-scrollbar-thumb:hover{background-color:#a1a1a1}.v-note-wrapper .v-note-read-model.scroll-style::-webkit-scrollbar-thumb:active{background-color:#a1a1a1}.v-note-wrapper .v-note-read-model.scroll-style::-webkit-scrollbar-track{-webkit-box-shadow:0 0 0 #808080 inset}.v-note-wrapper .v-note-read-model.scroll-style-border-radius::-webkit-scrollbar{border-bottom-right-radius:4px}.v-note-wrapper .v-note-read-model.show{display:block}.v-note-wrapper.shadow{border:none}.v-note-help-wrapper{position:fixed;left:0;right:0;top:0;bottom:0;background:rgba(0,0,0,0.7);z-index:1600;transition:all .1s linear 0s}.v-note-help-wrapper.fade-enter-active,.v-note-help-wrapper.fade-leave-active{opacity:1}.v-note-help-wrapper.fade-enter,.v-note-help-wrapper.fade-leave-active{opacity:0}.v-note-help-wrapper .v-note-help-content{position:relative;width:60%;max-width:800px;margin:30px auto;height:90%;min-width:320px;transition:all .1s linear 0s;z-index:3;border:1px solid #f2f6fc}.v-note-help-wrapper .v-note-help-content.shadow{border:none;box-shadow:0 0 5px rgba(0,0,0,0.157),0 0 5px rgba(0,0,0,0.227)}.v-note-help-wrapper .v-note-help-content i{font-size:28px;position:absolute;right:15px;top:8px;color:rgba(0,0,0,0.7);cursor:pointer}.v-note-help-wrapper .v-note-help-content i:hover{color:#000}.v-note-help-wrapper .v-note-help-content .v-note-help-show{width:100%;height:100%;font-size:18px;background:#fbfbfb;overflow-y:auto;padding:2% 6%}.v-note-help-wrapper .v-note-help-content .v-note-help-show.scroll-style::-webkit-scrollbar{width:6px;background-color:#e5e5e5}.v-note-help-wrapper .v-note-help-content .v-note-help-show.scroll-style::-webkit-scrollbar-thumb{background-color:#b7b7b7;border-radius:4px}.v-note-help-wrapper .v-note-help-content .v-note-help-show.scroll-style::-webkit-scrollbar-thumb:hover{background-color:#a1a1a1}.v-note-help-wrapper .v-note-help-content .v-note-help-show.scroll-style::-webkit-scrollbar-thumb:active{background-color:#a1a1a1}.v-note-help-wrapper .v-note-help-content .v-note-help-show.scroll-style::-webkit-scrollbar-track{-webkit-box-shadow:0 0 0 #808080 inset}.v-note-help-wrapper .v-note-help-content .v-note-help-show.scroll-style-border-radius::-webkit-scrollbar{border-bottom-right-radius:4px}.v-note-img-wrapper{position:fixed;display:flex;justify-content:center;align-items:center;left:0;right:0;top:0;bottom:0;background:rgba(0,0,0,0.7);z-index:1600;transition:all .1s linear 0s}.v-note-img-wrapper.fade-enter-active,.v-note-img-wrapper.fade-leave-active{opacity:1}.v-note-img-wrapper.fade-enter,.v-note-img-wrapper.fade-leave-active{opacity:0}.v-note-img-wrapper img{flex:0 0 auto;z-index:3}.v-note-img-wrapper i{font-size:28px;position:absolute;right:15px;top:8px;color:rgba(255,255,255,0.7);cursor:pointer}.v-note-img-wrapper i:hover{color:#fff}</style><style id="vuetify-theme-stylesheet" type="text/css">:root {
+      --v-theme-background: 245,239,234;
+      --v-theme-background-overlay-multiplier: 1;
+      --v-theme-surface: 255,255,255;
+      --v-theme-surface-overlay-multiplier: 1;
+      --v-theme-surface-bright: 255,255,255;
+      --v-theme-surface-bright-overlay-multiplier: 1;
+      --v-theme-surface-light: 238,238,238;
+      --v-theme-surface-light-overlay-multiplier: 1;
+      --v-theme-surface-variant: 66,66,66;
+      --v-theme-surface-variant-overlay-multiplier: 2;
+      --v-theme-on-surface-variant: 238,238,238;
+      --v-theme-primary: 185,135,102;
+      --v-theme-primary-overlay-multiplier: 1;
+      --v-theme-primary-darken-1: 31,85,146;
+      --v-theme-primary-darken-1-overlay-multiplier: 2;
+      --v-theme-secondary: 181,94,79;
+      --v-theme-secondary-overlay-multiplier: 1;
+      --v-theme-secondary-darken-1: 1,135,134;
+      --v-theme-secondary-darken-1-overlay-multiplier: 1;
+      --v-theme-error: 167,36,14;
+      --v-theme-error-overlay-multiplier: 2;
+      --v-theme-info: 56,95,132;
+      --v-theme-info-overlay-multiplier: 2;
+      --v-theme-success: 130,170,139;
+      --v-theme-success-overlay-multiplier: 1;
+      --v-theme-warning: 234,170,33;
+      --v-theme-warning-overlay-multiplier: 1;
+      --v-theme-tandoor: 221,191,134;
+      --v-theme-tandoor-overlay-multiplier: 1;
+      --v-theme-save: 130,170,139;
+      --v-theme-save-overlay-multiplier: 1;
+      --v-theme-create: 130,170,139;
+      --v-theme-create-overlay-multiplier: 1;
+      --v-theme-edit: 56,95,132;
+      --v-theme-edit-overlay-multiplier: 2;
+      --v-theme-delete: 167,36,14;
+      --v-theme-delete-overlay-multiplier: 2;
+      --v-theme-cancel: 234,170,33;
+      --v-theme-cancel-overlay-multiplier: 1;
+      --v-theme-recipeImagePlaceholderBg: 255,255,255;
+      --v-theme-recipeImagePlaceholderBg-overlay-multiplier: 1;
+      --v-theme-on-background: 0,0,0;
+      --v-theme-on-surface: 0,0,0;
+      --v-theme-on-surface-bright: 0,0,0;
+      --v-theme-on-surface-light: 0,0,0;
+      --v-theme-on-primary: 255,255,255;
+      --v-theme-on-primary-darken-1: 255,255,255;
+      --v-theme-on-secondary: 255,255,255;
+      --v-theme-on-secondary-darken-1: 255,255,255;
+      --v-theme-on-error: 255,255,255;
+      --v-theme-on-info: 255,255,255;
+      --v-theme-on-success: 255,255,255;
+      --v-theme-on-warning: 0,0,0;
+      --v-theme-on-tandoor: 0,0,0;
+      --v-theme-on-save: 255,255,255;
+      --v-theme-on-create: 255,255,255;
+      --v-theme-on-edit: 255,255,255;
+      --v-theme-on-delete: 255,255,255;
+      --v-theme-on-cancel: 0,0,0;
+      --v-theme-on-recipeImagePlaceholderBg: 0,0,0;
+      --v-border-color: 0, 0, 0;
+      --v-border-opacity: 0.12;
+      --v-high-emphasis-opacity: 0.87;
+      --v-medium-emphasis-opacity: 0.6;
+      --v-disabled-opacity: 0.38;
+      --v-idle-opacity: 0.04;
+      --v-hover-opacity: 0.04;
+      --v-focus-opacity: 0.12;
+      --v-selected-opacity: 0.08;
+      --v-activated-opacity: 0.12;
+      --v-pressed-opacity: 0.12;
+      --v-dragged-opacity: 0.08;
+      --v-theme-kbd: 238, 238, 238;
+      --v-theme-on-kbd: 0, 0, 0;
+      --v-theme-code: 245, 245, 245;
+      --v-theme-on-code: 0, 0, 0;
+    }
+    .v-theme--light {
+      color-scheme: normal;
+      --v-theme-background: 245,239,234;
+      --v-theme-background-overlay-multiplier: 1;
+      --v-theme-surface: 255,255,255;
+      --v-theme-surface-overlay-multiplier: 1;
+      --v-theme-surface-bright: 255,255,255;
+      --v-theme-surface-bright-overlay-multiplier: 1;
+      --v-theme-surface-light: 238,238,238;
+      --v-theme-surface-light-overlay-multiplier: 1;
+      --v-theme-surface-variant: 66,66,66;
+      --v-theme-surface-variant-overlay-multiplier: 2;
+      --v-theme-on-surface-variant: 238,238,238;
+      --v-theme-primary: 185,135,102;
+      --v-theme-primary-overlay-multiplier: 1;
+      --v-theme-primary-darken-1: 31,85,146;
+      --v-theme-primary-darken-1-overlay-multiplier: 2;
+      --v-theme-secondary: 181,94,79;
+      --v-theme-secondary-overlay-multiplier: 1;
+      --v-theme-secondary-darken-1: 1,135,134;
+      --v-theme-secondary-darken-1-overlay-multiplier: 1;
+      --v-theme-error: 167,36,14;
+      --v-theme-error-overlay-multiplier: 2;
+      --v-theme-info: 56,95,132;
+      --v-theme-info-overlay-multiplier: 2;
+      --v-theme-success: 130,170,139;
+      --v-theme-success-overlay-multiplier: 1;
+      --v-theme-warning: 234,170,33;
+      --v-theme-warning-overlay-multiplier: 1;
+      --v-theme-tandoor: 221,191,134;
+      --v-theme-tandoor-overlay-multiplier: 1;
+      --v-theme-save: 130,170,139;
+      --v-theme-save-overlay-multiplier: 1;
+      --v-theme-create: 130,170,139;
+      --v-theme-create-overlay-multiplier: 1;
+      --v-theme-edit: 56,95,132;
+      --v-theme-edit-overlay-multiplier: 2;
+      --v-theme-delete: 167,36,14;
+      --v-theme-delete-overlay-multiplier: 2;
+      --v-theme-cancel: 234,170,33;
+      --v-theme-cancel-overlay-multiplier: 1;
+      --v-theme-recipeImagePlaceholderBg: 255,255,255;
+      --v-theme-recipeImagePlaceholderBg-overlay-multiplier: 1;
+      --v-theme-on-background: 0,0,0;
+      --v-theme-on-surface: 0,0,0;
+      --v-theme-on-surface-bright: 0,0,0;
+      --v-theme-on-surface-light: 0,0,0;
+      --v-theme-on-primary: 255,255,255;
+      --v-theme-on-primary-darken-1: 255,255,255;
+      --v-theme-on-secondary: 255,255,255;
+      --v-theme-on-secondary-darken-1: 255,255,255;
+      --v-theme-on-error: 255,255,255;
+      --v-theme-on-info: 255,255,255;
+      --v-theme-on-success: 255,255,255;
+      --v-theme-on-warning: 0,0,0;
+      --v-theme-on-tandoor: 0,0,0;
+      --v-theme-on-save: 255,255,255;
+      --v-theme-on-create: 255,255,255;
+      --v-theme-on-edit: 255,255,255;
+      --v-theme-on-delete: 255,255,255;
+      --v-theme-on-cancel: 0,0,0;
+      --v-theme-on-recipeImagePlaceholderBg: 0,0,0;
+      --v-border-color: 0, 0, 0;
+      --v-border-opacity: 0.12;
+      --v-high-emphasis-opacity: 0.87;
+      --v-medium-emphasis-opacity: 0.6;
+      --v-disabled-opacity: 0.38;
+      --v-idle-opacity: 0.04;
+      --v-hover-opacity: 0.04;
+      --v-focus-opacity: 0.12;
+      --v-selected-opacity: 0.08;
+      --v-activated-opacity: 0.12;
+      --v-pressed-opacity: 0.12;
+      --v-dragged-opacity: 0.08;
+      --v-theme-kbd: 238, 238, 238;
+      --v-theme-on-kbd: 0, 0, 0;
+      --v-theme-code: 245, 245, 245;
+      --v-theme-on-code: 0, 0, 0;
+    }
+    .v-theme--dark {
+      color-scheme: dark;
+      --v-theme-background: 18,18,18;
+      --v-theme-background-overlay-multiplier: 1;
+      --v-theme-surface: 33,33,33;
+      --v-theme-surface-overlay-multiplier: 1;
+      --v-theme-surface-bright: 204,191,214;
+      --v-theme-surface-bright-overlay-multiplier: 2;
+      --v-theme-surface-light: 66,66,66;
+      --v-theme-surface-light-overlay-multiplier: 1;
+      --v-theme-surface-variant: 200,200,200;
+      --v-theme-surface-variant-overlay-multiplier: 2;
+      --v-theme-on-surface-variant: 0,0,0;
+      --v-theme-primary: 185,135,102;
+      --v-theme-primary-overlay-multiplier: 2;
+      --v-theme-primary-darken-1: 39,124,193;
+      --v-theme-primary-darken-1-overlay-multiplier: 2;
+      --v-theme-secondary: 181,94,79;
+      --v-theme-secondary-overlay-multiplier: 2;
+      --v-theme-secondary-darken-1: 72,169,166;
+      --v-theme-secondary-darken-1-overlay-multiplier: 2;
+      --v-theme-error: 167,36,14;
+      --v-theme-error-overlay-multiplier: 1;
+      --v-theme-info: 56,95,132;
+      --v-theme-info-overlay-multiplier: 1;
+      --v-theme-success: 130,170,139;
+      --v-theme-success-overlay-multiplier: 2;
+      --v-theme-warning: 234,170,33;
+      --v-theme-warning-overlay-multiplier: 2;
+      --v-theme-tandoor: 221,191,134;
+      --v-theme-tandoor-overlay-multiplier: 2;
+      --v-theme-save: 130,170,139;
+      --v-theme-save-overlay-multiplier: 2;
+      --v-theme-create: 130,170,139;
+      --v-theme-create-overlay-multiplier: 2;
+      --v-theme-edit: 56,95,132;
+      --v-theme-edit-overlay-multiplier: 1;
+      --v-theme-delete: 167,36,14;
+      --v-theme-delete-overlay-multiplier: 1;
+      --v-theme-cancel: 234,170,33;
+      --v-theme-cancel-overlay-multiplier: 2;
+      --v-theme-recipeImagePlaceholderBg: 33,33,33;
+      --v-theme-recipeImagePlaceholderBg-overlay-multiplier: 1;
+      --v-theme-on-background: 255,255,255;
+      --v-theme-on-surface: 255,255,255;
+      --v-theme-on-surface-bright: 0,0,0;
+      --v-theme-on-surface-light: 255,255,255;
+      --v-theme-on-primary: 255,255,255;
+      --v-theme-on-primary-darken-1: 255,255,255;
+      --v-theme-on-secondary: 255,255,255;
+      --v-theme-on-secondary-darken-1: 255,255,255;
+      --v-theme-on-error: 255,255,255;
+      --v-theme-on-info: 255,255,255;
+      --v-theme-on-success: 255,255,255;
+      --v-theme-on-warning: 0,0,0;
+      --v-theme-on-tandoor: 0,0,0;
+      --v-theme-on-save: 255,255,255;
+      --v-theme-on-create: 255,255,255;
+      --v-theme-on-edit: 255,255,255;
+      --v-theme-on-delete: 255,255,255;
+      --v-theme-on-cancel: 0,0,0;
+      --v-theme-on-recipeImagePlaceholderBg: 255,255,255;
+      --v-border-color: 255, 255, 255;
+      --v-border-opacity: 0.12;
+      --v-high-emphasis-opacity: 1;
+      --v-medium-emphasis-opacity: 0.7;
+      --v-disabled-opacity: 0.5;
+      --v-idle-opacity: 0.1;
+      --v-hover-opacity: 0.04;
+      --v-focus-opacity: 0.12;
+      --v-selected-opacity: 0.08;
+      --v-activated-opacity: 0.12;
+      --v-pressed-opacity: 0.16;
+      --v-dragged-opacity: 0.08;
+      --v-theme-kbd: 66, 66, 66;
+      --v-theme-on-kbd: 255, 255, 255;
+      --v-theme-code: 52, 52, 52;
+      --v-theme-on-code: 204, 204, 204;
+    }
+    .bg-background {
+      --v-theme-overlay-multiplier: var(--v-theme-background-overlay-multiplier);
+      background-color: rgb(var(--v-theme-background)) !important;
+      color: rgb(var(--v-theme-on-background)) !important;
+    }
+    .bg-surface {
+      --v-theme-overlay-multiplier: var(--v-theme-surface-overlay-multiplier);
+      background-color: rgb(var(--v-theme-surface)) !important;
+      color: rgb(var(--v-theme-on-surface)) !important;
+    }
+    .bg-surface-bright {
+      --v-theme-overlay-multiplier: var(--v-theme-surface-bright-overlay-multiplier);
+      background-color: rgb(var(--v-theme-surface-bright)) !important;
+      color: rgb(var(--v-theme-on-surface-bright)) !important;
+    }
+    .bg-surface-light {
+      --v-theme-overlay-multiplier: var(--v-theme-surface-light-overlay-multiplier);
+      background-color: rgb(var(--v-theme-surface-light)) !important;
+      color: rgb(var(--v-theme-on-surface-light)) !important;
+    }
+    .bg-surface-variant {
+      --v-theme-overlay-multiplier: var(--v-theme-surface-variant-overlay-multiplier);
+      background-color: rgb(var(--v-theme-surface-variant)) !important;
+      color: rgb(var(--v-theme-on-surface-variant)) !important;
+    }
+    .bg-primary {
+      --v-theme-overlay-multiplier: var(--v-theme-primary-overlay-multiplier);
+      background-color: rgb(var(--v-theme-primary)) !important;
+      color: rgb(var(--v-theme-on-primary)) !important;
+    }
+    .bg-primary-darken-1 {
+      --v-theme-overlay-multiplier: var(--v-theme-primary-darken-1-overlay-multiplier);
+      background-color: rgb(var(--v-theme-primary-darken-1)) !important;
+      color: rgb(var(--v-theme-on-primary-darken-1)) !important;
+    }
+    .bg-secondary {
+      --v-theme-overlay-multiplier: var(--v-theme-secondary-overlay-multiplier);
+      background-color: rgb(var(--v-theme-secondary)) !important;
+      color: rgb(var(--v-theme-on-secondary)) !important;
+    }
+    .bg-secondary-darken-1 {
+      --v-theme-overlay-multiplier: var(--v-theme-secondary-darken-1-overlay-multiplier);
+      background-color: rgb(var(--v-theme-secondary-darken-1)) !important;
+      color: rgb(var(--v-theme-on-secondary-darken-1)) !important;
+    }
+    .bg-error {
+      --v-theme-overlay-multiplier: var(--v-theme-error-overlay-multiplier);
+      background-color: rgb(var(--v-theme-error)) !important;
+      color: rgb(var(--v-theme-on-error)) !important;
+    }
+    .bg-info {
+      --v-theme-overlay-multiplier: var(--v-theme-info-overlay-multiplier);
+      background-color: rgb(var(--v-theme-info)) !important;
+      color: rgb(var(--v-theme-on-info)) !important;
+    }
+    .bg-success {
+      --v-theme-overlay-multiplier: var(--v-theme-success-overlay-multiplier);
+      background-color: rgb(var(--v-theme-success)) !important;
+      color: rgb(var(--v-theme-on-success)) !important;
+    }
+    .bg-warning {
+      --v-theme-overlay-multiplier: var(--v-theme-warning-overlay-multiplier);
+      background-color: rgb(var(--v-theme-warning)) !important;
+      color: rgb(var(--v-theme-on-warning)) !important;
+    }
+    .bg-tandoor {
+      --v-theme-overlay-multiplier: var(--v-theme-tandoor-overlay-multiplier);
+      background-color: rgb(var(--v-theme-tandoor)) !important;
+      color: rgb(var(--v-theme-on-tandoor)) !important;
+    }
+    .bg-save {
+      --v-theme-overlay-multiplier: var(--v-theme-save-overlay-multiplier);
+      background-color: rgb(var(--v-theme-save)) !important;
+      color: rgb(var(--v-theme-on-save)) !important;
+    }
+    .bg-create {
+      --v-theme-overlay-multiplier: var(--v-theme-create-overlay-multiplier);
+      background-color: rgb(var(--v-theme-create)) !important;
+      color: rgb(var(--v-theme-on-create)) !important;
+    }
+    .bg-edit {
+      --v-theme-overlay-multiplier: var(--v-theme-edit-overlay-multiplier);
+      background-color: rgb(var(--v-theme-edit)) !important;
+      color: rgb(var(--v-theme-on-edit)) !important;
+    }
+    .bg-delete {
+      --v-theme-overlay-multiplier: var(--v-theme-delete-overlay-multiplier);
+      background-color: rgb(var(--v-theme-delete)) !important;
+      color: rgb(var(--v-theme-on-delete)) !important;
+    }
+    .bg-cancel {
+      --v-theme-overlay-multiplier: var(--v-theme-cancel-overlay-multiplier);
+      background-color: rgb(var(--v-theme-cancel)) !important;
+      color: rgb(var(--v-theme-on-cancel)) !important;
+    }
+    .bg-recipeImagePlaceholderBg {
+      --v-theme-overlay-multiplier: var(--v-theme-recipeImagePlaceholderBg-overlay-multiplier);
+      background-color: rgb(var(--v-theme-recipeImagePlaceholderBg)) !important;
+      color: rgb(var(--v-theme-on-recipeImagePlaceholderBg)) !important;
+    }
+    .text-background {
+      color: rgb(var(--v-theme-background)) !important;
+    }
+    .border-background {
+      --v-border-color: var(--v-theme-background);
+    }
+    .text-surface {
+      color: rgb(var(--v-theme-surface)) !important;
+    }
+    .border-surface {
+      --v-border-color: var(--v-theme-surface);
+    }
+    .text-surface-bright {
+      color: rgb(var(--v-theme-surface-bright)) !important;
+    }
+    .border-surface-bright {
+      --v-border-color: var(--v-theme-surface-bright);
+    }
+    .text-surface-light {
+      color: rgb(var(--v-theme-surface-light)) !important;
+    }
+    .border-surface-light {
+      --v-border-color: var(--v-theme-surface-light);
+    }
+    .text-surface-variant {
+      color: rgb(var(--v-theme-surface-variant)) !important;
+    }
+    .border-surface-variant {
+      --v-border-color: var(--v-theme-surface-variant);
+    }
+    .on-surface-variant {
+      color: rgb(var(--v-theme-on-surface-variant)) !important;
+    }
+    .text-primary {
+      color: rgb(var(--v-theme-primary)) !important;
+    }
+    .border-primary {
+      --v-border-color: var(--v-theme-primary);
+    }
+    .text-primary-darken-1 {
+      color: rgb(var(--v-theme-primary-darken-1)) !important;
+    }
+    .border-primary-darken-1 {
+      --v-border-color: var(--v-theme-primary-darken-1);
+    }
+    .text-secondary {
+      color: rgb(var(--v-theme-secondary)) !important;
+    }
+    .border-secondary {
+      --v-border-color: var(--v-theme-secondary);
+    }
+    .text-secondary-darken-1 {
+      color: rgb(var(--v-theme-secondary-darken-1)) !important;
+    }
+    .border-secondary-darken-1 {
+      --v-border-color: var(--v-theme-secondary-darken-1);
+    }
+    .text-error {
+      color: rgb(var(--v-theme-error)) !important;
+    }
+    .border-error {
+      --v-border-color: var(--v-theme-error);
+    }
+    .text-info {
+      color: rgb(var(--v-theme-info)) !important;
+    }
+    .border-info {
+      --v-border-color: var(--v-theme-info);
+    }
+    .text-success {
+      color: rgb(var(--v-theme-success)) !important;
+    }
+    .border-success {
+      --v-border-color: var(--v-theme-success);
+    }
+    .text-warning {
+      color: rgb(var(--v-theme-warning)) !important;
+    }
+    .border-warning {
+      --v-border-color: var(--v-theme-warning);
+    }
+    .text-tandoor {
+      color: rgb(var(--v-theme-tandoor)) !important;
+    }
+    .border-tandoor {
+      --v-border-color: var(--v-theme-tandoor);
+    }
+    .text-save {
+      color: rgb(var(--v-theme-save)) !important;
+    }
+    .border-save {
+      --v-border-color: var(--v-theme-save);
+    }
+    .text-create {
+      color: rgb(var(--v-theme-create)) !important;
+    }
+    .border-create {
+      --v-border-color: var(--v-theme-create);
+    }
+    .text-edit {
+      color: rgb(var(--v-theme-edit)) !important;
+    }
+    .border-edit {
+      --v-border-color: var(--v-theme-edit);
+    }
+    .text-delete {
+      color: rgb(var(--v-theme-delete)) !important;
+    }
+    .border-delete {
+      --v-border-color: var(--v-theme-delete);
+    }
+    .text-cancel {
+      color: rgb(var(--v-theme-cancel)) !important;
+    }
+    .border-cancel {
+      --v-border-color: var(--v-theme-cancel);
+    }
+    .text-recipeImagePlaceholderBg {
+      color: rgb(var(--v-theme-recipeImagePlaceholderBg)) !important;
+    }
+    .border-recipeImagePlaceholderBg {
+      --v-border-color: var(--v-theme-recipeImagePlaceholderBg);
+    }
+    .on-background {
+      color: rgb(var(--v-theme-on-background)) !important;
+    }
+    .on-surface {
+      color: rgb(var(--v-theme-on-surface)) !important;
+    }
+    .on-surface-bright {
+      color: rgb(var(--v-theme-on-surface-bright)) !important;
+    }
+    .on-surface-light {
+      color: rgb(var(--v-theme-on-surface-light)) !important;
+    }
+    .on-primary {
+      color: rgb(var(--v-theme-on-primary)) !important;
+    }
+    .on-primary-darken-1 {
+      color: rgb(var(--v-theme-on-primary-darken-1)) !important;
+    }
+    .on-secondary {
+      color: rgb(var(--v-theme-on-secondary)) !important;
+    }
+    .on-secondary-darken-1 {
+      color: rgb(var(--v-theme-on-secondary-darken-1)) !important;
+    }
+    .on-error {
+      color: rgb(var(--v-theme-on-error)) !important;
+    }
+    .on-info {
+      color: rgb(var(--v-theme-on-info)) !important;
+    }
+    .on-success {
+      color: rgb(var(--v-theme-on-success)) !important;
+    }
+    .on-warning {
+      color: rgb(var(--v-theme-on-warning)) !important;
+    }
+    .on-tandoor {
+      color: rgb(var(--v-theme-on-tandoor)) !important;
+    }
+    .on-save {
+      color: rgb(var(--v-theme-on-save)) !important;
+    }
+    .on-create {
+      color: rgb(var(--v-theme-on-create)) !important;
+    }
+    .on-edit {
+      color: rgb(var(--v-theme-on-edit)) !important;
+    }
+    .on-delete {
+      color: rgb(var(--v-theme-on-delete)) !important;
+    }
+    .on-cancel {
+      color: rgb(var(--v-theme-on-cancel)) !important;
+    }
+    .on-recipeImagePlaceholderBg {
+      color: rgb(var(--v-theme-on-recipeImagePlaceholderBg)) !important;
+    }
+</style><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/MealPlanEditor-Da7vEFRo.js"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/useModelEditorFunctions-Cl4dFU_3.js"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/DeleteConfirmDialog.vue_vue_type_script_setup_true_lang-Cjnw7QOc.js"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/VClosableCardTitle.vue_vue_type_script_setup_true_lang-CjwVOtqy.js"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/ModelSelect.vue_vue_type_style_index_1_lang-Db5BBpxM.js"><link rel="stylesheet" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/ModelSelect-C7MF0wVq.css"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/RecipeCard-BI9moA6E.js"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/RecipeImage.vue_vue_type_script_setup_true_lang-Dha5Mo16.js"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/KeywordsBar.vue_vue_type_script_setup_true_lang-BKOdqwGK.js"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/PrivateRecipeBadge.vue_vue_type_script_setup_true_lang-CG89QfXt.js"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/ModelEditDialog.vue_vue_type_script_setup_true_lang-D5F8-YaH.js"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/BtnCopy.vue_vue_type_script_setup_true_lang-D17jgyZ2.js"><link rel="stylesheet" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/BtnCopy-Czf-fUM7.css"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/AddToShoppingDialog.vue_vue_type_script_setup_true_lang-Bvdr_IWU.js"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/number_utils-BSPd4Lyv.js"><link rel="stylesheet" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/number_utils-B8KjM0Qi.css"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/model_utils-CVQgSPL_.js"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/VNumberInput-CTjWODfv.js"><link rel="stylesheet" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/VNumberInput-DowUXfJY.css"><link rel="stylesheet" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/AddToShoppingDialog-CXVQn6GN.css"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/useFileApi-CuzCxz0O.js"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/useDjangoUrls-Cn5pT73N.js"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/_plugin-vue_export-helper-DlAUqK2U.js"><link rel="stylesheet" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/RecipeCard-_5l42m6A.css"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/ShoppingListView.vue_vue_type_script_setup_true_lang-C_MMbEOO.js"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/logic_utils-DuyEUvIW.js"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/VListItemAction-CeF1aE63.js"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/NumberScalerDialog.vue_vue_type_script_setup_true_lang-CqjSCHNH.js"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/SupermarketEditor.vue_vue_type_script_setup_true_lang-BY8JT7gb.js"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/vue.esm-bundler-DHTaAQny.js"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/VTabs-BNm-4JAc.js"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/VWindowItem-C3_lLxmW.js"><link rel="stylesheet" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/VWindowItem-CWv03gfN.css"><link rel="stylesheet" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/VTabs-BKAzHIdo.css"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/VForm-BUoZ5OZo.js"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/VTextarea-C_pY0EKP.js"><link rel="stylesheet" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/VTextarea-f6vTjzFy.css"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/VSwitch-BJSSY0Oe.js"><link rel="stylesheet" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/VSwitch-Mm7Rd7At.css"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/VContainer-BwJ-CwR8.js"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/VAlert-fo7ZE8Rw.js"><link rel="stylesheet" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/VAlert-BDbtqfCV.css"><link rel="stylesheet" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/ShoppingListView-BuuiH6XK.css"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/ClosableHelpAlert.vue_vue_type_script_setup_true_lang-DJjqI-FY.js"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/MealPlanStore-CoLZ0ykn.js"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/VCheckbox-8HeYhLAe.js"><link rel="stylesheet" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/VCheckbox-CvH8ekHL.css"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/VDateInput-DeHBtBhX.js"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/VPicker-DCtHpbIT.js"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/VSheet-qQglfXZM.js"><link rel="stylesheet" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/VSheet-B07QgQE8.css"><link rel="stylesheet" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/VPicker-B7cB3kJg.css"><link rel="stylesheet" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/VDateInput-D7ccNmmE.css"><link rel="modulepreload" as="script" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/VTimePicker-BFUn4C-o.js"><link rel="stylesheet" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/VTimePicker-Du0TLjTv.css"><link rel="stylesheet" crossorigin="" href="https://app.tandoor.dev/static/vue3/assets/MealPlanEditor-BL08udYc.css"></head>
+<body>
+
+<div id="app" data-v-app=""><div class="v-application v-theme--light v-layout v-layout--full-height v-locale--is-ltr"><div class="v-application__wrap"><!----><header class="v-toolbar v-toolbar--collapse-start v-toolbar--flat v-toolbar--density-comfortable v-theme--light v-locale--is-ltr v-app-bar" style="background-color: rgb(221, 191, 134); color: rgb(0, 0, 0); caret-color: rgb(0, 0, 0); top: 0px; z-index: 1008; transform: translateY(0px); position: fixed; left: 0px; width: calc(100% - 0px);"><!----><div class="v-toolbar__content" style="height: 56px;"><!----><!----><a href="/" class=""><div class="v-responsive v-img ms-2" style="width: 140px;"><div class="v-responsive__sizer" style="padding-bottom: 25%;"></div><img class="v-img__img v-img__img--contain" src="https://app.tandoor.dev/static/vue3/assets/brand_logo-DHt4CyHb.svg" style=""><!----><!----><!----><!----><!----></div><!----></a><div class="v-spacer"></div><button type="button" class="v-btn v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-plain d-print-none"><span class="v-btn__overlay"></span><span class="v-btn__underlay"></span><!----><span class="v-btn__content" data-no-activator=""><i class="fa-solid fa-search v-icon notranslate v-theme--light v-icon--size-default mr-1 fa-fw" aria-hidden="true"></i><span class="d-none d-sm-block">Поиск</span><span class="v-chip v-chip--label v-theme--light v-chip--density-default v-chip--size-x-small v-chip--variant-tonal d-none d-md-flex ml-1" draggable="false"><!----><span class="v-chip__underlay"></span><!----><!----><div class="v-chip__content" data-no-activator="">Ctrl+K</div><!----><!----></span></span><!----><!----></button><!----><!----><button type="button" class="v-btn v-btn--icon v-theme--light v-btn--density-default v-btn--size-default v-btn--variant-text d-print-none" aria-haspopup="menu" aria-expanded="false" aria-controls="v-menu-v-30" aria-owns="v-menu-v-30"><span class="v-btn__overlay"></span><span class="v-btn__underlay"></span><!----><span class="v-btn__content" data-no-activator=""><i class="fa-solid fa-plus v-icon notranslate v-theme--light v-icon--size-default fa-fw" aria-hidden="true"></i><!----><!----></span><!----><!----></button><div class="v-avatar v-theme--light bg-primary v-avatar--density-default v-avatar--size-default v-avatar--variant-flat me-2 cursor-pointer d-print-none" aria-haspopup="menu" aria-expanded="false" aria-controls="v-menu-v-31" aria-owns="v-menu-v-31">V <!----><!----><!----><span class="v-avatar__underlay"></span></div><!----></div><!----></header><header class="v-toolbar v-toolbar--collapse-start v-toolbar--density-compact bg-info v-theme--light v-locale--is-ltr v-app-bar" style="top: 56px; z-index: 1006; transform: translateY(0px); position: fixed; left: 0px; width: calc(100% - 0px);"><!----><div class="v-toolbar__content" style="height: 48px;"><!----><!----><p class="text-center w-100">Текущая версия: бесплатная <a href="https://tandoor.dev/manage" class="v-btn v-theme--light bg-success v-btn--density-default v-btn--size-default v-btn--variant-flat"><span class="v-btn__overlay"></span><span class="v-btn__underlay"></span><!----><span class="v-btn__content" data-no-activator="">Обновить сейчас</span><!----><!----></a></p><!----></div><!----></header><!----><!----><main class="v-main" style="--v-layout-left: 256px; --v-layout-right: 0px; --v-layout-top: 104px; --v-layout-bottom: 0px;"><div class="v-container v-container--fluid v-locale--is-ltr h-100 pt-0 pl-0 pb-0" style="max-width: 100%;"><div data-v-fbd3a453="" class="v-row h-100"><div data-v-fbd3a453="" class="v-col pb-0"><div data-v-fbd3a453="" class="v-card v-theme--light v-card--density-default v-card--variant-elevated h-100"><!----><div class="v-card__loader"><div class="v-progress-linear v-theme--light v-locale--is-ltr" style="top: 0px; height: 0px; --v-progress-linear-height: 2px;" role="progressbar" aria-hidden="true" aria-valuemin="0" aria-valuemax="100"><!----><div class="v-progress-linear__background"></div><div class="v-progress-linear__buffer" style="width: 0%;"></div><div class="v-progress-linear__indeterminate"><div class="v-progress-linear__indeterminate long"></div><div class="v-progress-linear__indeterminate short"></div></div><!----></div></div><!----><!----><div data-v-fbd3a453="" aria-label="Calendar" class="cv-wrapper locale-ru locale-ru-ru y2026 m03 period-week periodCount-3 theme-default"><div data-v-fbd3a453="" class="cv-header"><div class="cv-header-nav"><button class="previousYear" aria-label="Previous Year">&lt;&lt;</button><button class="previousPeriod" aria-label="Previous Period">&lt;</button><button class="currentPeriod" aria-label="Current Period">Сегодня</button><button class="nextPeriod" aria-label="Next Period">&gt;</button><button class="nextYear" aria-label="Next Year">&gt;&gt;</button></div><div class="periodLabel">март 2 – 22, 2026</div></div><div class="cv-header-days"><div class="cv-weeknumber"></div><div class="dow1 cv-header-day">пн</div><div class="dow2 cv-header-day">вт</div><div class="dow3 cv-header-day">ср</div><div class="dow4 cv-header-day">чт</div><div class="dow5 cv-header-day">пт</div><div class="dow6 cv-header-day">сб</div><div class="dow0 cv-header-day">вс</div></div><div aria-multiselectable="false" class="cv-weeks"><div class="cv-week week1 ws2026-03-02"><div class="cv-weeknumber"><span>10</span></div><div class="cv-weekdays"><div draggable="false" class="cv-day dow1 d2026-03-02 d03-02 d02 instance1 past" aria-label="2" aria-selected="false" aria-dropeffect="none"><div class="cv-day-number"><!----> 2</div></div><div draggable="false" class="cv-day dow2 d2026-03-03 d03-03 d03 instance1 today hasItems" aria-label="3" aria-selected="false" aria-dropeffect="none"><div class="cv-day-number"><!----> 3</div></div><div draggable="false" class="cv-day dow3 d2026-03-04 d03-04 d04 instance1 future" aria-label="4" aria-selected="false" aria-dropeffect="none"><div class="cv-day-number"><!----> 4</div></div><div draggable="false" class="cv-day dow4 d2026-03-05 d03-05 d05 instance1 future" aria-label="5" aria-selected="false" aria-dropeffect="none"><div class="cv-day-number"><!----> 5</div></div><div draggable="false" class="cv-day dow5 d2026-03-06 d03-06 d06 instance1 future" aria-label="6" aria-selected="false" aria-dropeffect="none"><div class="cv-day-number"><!----> 6</div></div><div draggable="false" class="cv-day dow6 d2026-03-07 d03-07 d07 instance1 future" aria-label="7" aria-selected="false" aria-dropeffect="none"><div class="cv-day-number"><!----> 7</div></div><div draggable="false" class="cv-day dow0 d2026-03-08 d03-08 d08 instance2 future" aria-label="8" aria-selected="false" aria-dropeffect="none"><div class="cv-day-number"><!----> 8</div></div><div data-v-74d6cd27="" data-v-fbd3a453="" class="v-card v-card--hover v-theme--light v-card--density-default v-card--variant-elevated card cv-item pa-0 offset1 span1" style="top: calc(1.4em + 0px + 0rem); height: 3.5rem;" draggable="true"><!----><div class="v-card__loader"><div class="v-progress-linear v-theme--light v-locale--is-ltr" style="top: 0px; height: 0px; --v-progress-linear-height: 2px;" role="progressbar" aria-hidden="true" aria-valuemin="0" aria-valuemax="100"><!----><div class="v-progress-linear__background"></div><div class="v-progress-linear__buffer" style="width: 0%;"></div><div class="v-progress-linear__indeterminate"><div class="v-progress-linear__indeterminate long"></div><div class="v-progress-linear__indeterminate short"></div></div><!----></div></div><!----><!----><div data-v-74d6cd27="" class="v-card-text pa-0" aria-haspopup="dialog"><div data-v-74d6cd27="" class="d-flex flex-row align-items-center"><div data-v-74d6cd27="" class="flex-column"><div data-v-74d6cd27="" class="v-responsive v-img bg-recipeImagePlaceholderBg rounded-0" style="width: 3.5rem; height: 3.5rem;" aria-label="Изображение рецепта" role="img"><div class="v-responsive__sizer" style="padding-bottom: 100%;"></div><img class="v-img__img v-img__img--cover" src="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='UTF-8'%20standalone='no'?%3e%3csvg%20xmlns:dc='http://purl.org/dc/elements/1.1/'%20xmlns:cc='http://creativecommons.org/ns%23'%20xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns%23'%20xmlns:svg='http://www.w3.org/2000/svg'%20xmlns='http://www.w3.org/2000/svg'%20xmlns:sodipodi='http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd'%20xmlns:inkscape='http://www.inkscape.org/namespaces/inkscape'%20aria-hidden='true'%20focusable='false'%20data-prefix='fas'%20data-icon='pizza-slice'%20class='svg-inline--fa%20fa-pizza-slice%20fa-w-16'%20role='img'%20viewBox='0%200%20512%20512'%20version='1.1'%20id='svg4'%20sodipodi:docname='recipe_no_image.svg'%20inkscape:version='0.92.4%20(5da689c313,%202019-01-14)'%3e%3cmetadata%20id='metadata10'%3e%3crdf:RDF%3e%3ccc:Work%20rdf:about=''%3e%3cdc:format%3eimage/svg+xml%3c/dc:format%3e%3cdc:type%20rdf:resource='http://purl.org/dc/dcmitype/StillImage'%20/%3e%3c/cc:Work%3e%3c/rdf:RDF%3e%3c/metadata%3e%3cdefs%20id='defs8'%20/%3e%3csodipodi:namedview%20pagecolor='%23ffffff'%20bordercolor='%23666666'%20borderopacity='1'%20objecttolerance='10'%20gridtolerance='10'%20guidetolerance='10'%20inkscape:pageopacity='0'%20inkscape:pageshadow='2'%20inkscape:window-width='3840'%20inkscape:window-height='2066'%20id='namedview6'%20showgrid='false'%20inkscape:zoom='0.921875'%20inkscape:cx='-25.662611'%20inkscape:cy='214.71807'%20inkscape:window-x='2869'%20inkscape:window-y='54'%20inkscape:window-maximized='1'%20inkscape:current-layer='svg4'%20/%3e%3cpath%20d='m%20235.62851,202.1526%20c%20-3.38906,-0.31992%20-6.54323,1.7722%20-7.40937,5.07666%20l%20-3.10593,11.84344%20c%2039.34747,1.15551%2065.965,27.49017%2067.63017,66.72064%20l%2011.9414,-3.32129%20c%203.29677,-0.91767%205.34573,-4.14216%204.95356,-7.55606%20-4.37894,-38.04972%20-35.85985,-69.14953%20-74.00983,-72.76339%20z%20m%20-12.26226,23.57322%20-20.94044,79.87325%20a%203.3995443,3.4118034%200%200%200%204.19438,4.15688%20L%20286.10367,287.635%20c%20-0.8955,-36.81001%20-25.8122,-61.48823%20-62.73742,-61.90076%20z%20m%205.78824,63.9529%20a%206.7110067,6.7352075%200%201%201%206.711,-6.73521%206.7110067,6.7352075%200%200%201%20-6.711,6.73521%20z%20M%20239.221,257.68648%20a%206.7110067,6.7352075%200%201%201%206.71101,-6.7352%206.7110067,6.7352075%200%200%201%20-6.71101,6.7352%20z%20m%2021.81077,21.88943%20a%206.7110067,6.7352075%200%201%201%206.71101,-6.73521%206.7110067,6.7352075%200%200%201%20-6.71101,6.73521%20z'%20id='path2'%20style='fill:%23d9cfbe;fill-opacity:1;stroke-width:0.21009675'%20inkscape:connector-curvature='0'%20/%3e%3c/svg%3e" alt="Изображение рецепта" style=""><!----><!----><!----><!----><div class="v-responsive__content"></div></div></div><div data-v-74d6cd27="" class="flex-column flex-grow-0 pa-1"><span data-v-74d6cd27="" class="font-light three-line-text"><!----> AutoRecipe-966d9c</span></div></div><!----><!----></div><!----><!----><span class="v-card__underlay"></span></div></div></div><div class="cv-week week2 ws2026-03-09"><div class="cv-weeknumber"><span>11</span></div><div class="cv-weekdays"><div draggable="false" class="cv-day dow1 d2026-03-09 d03-09 d09 instance2 future" aria-label="9" aria-selected="false" aria-dropeffect="none"><div class="cv-day-number"><!----> 9</div></div><div draggable="false" class="cv-day dow2 d2026-03-10 d03-10 d10 instance2 future" aria-label="10" aria-selected="false" aria-dropeffect="none"><div class="cv-day-number"><!----> 10</div></div><div draggable="false" class="cv-day dow3 d2026-03-11 d03-11 d11 instance2 future" aria-label="11" aria-selected="false" aria-dropeffect="none"><div class="cv-day-number"><!----> 11</div></div><div draggable="false" class="cv-day dow4 d2026-03-12 d03-12 d12 instance2 future" aria-label="12" aria-selected="false" aria-dropeffect="none"><div class="cv-day-number"><!----> 12</div></div><div draggable="false" class="cv-day dow5 d2026-03-13 d03-13 d13 instance2 future" aria-label="13" aria-selected="false" aria-dropeffect="none"><div class="cv-day-number"><!----> 13</div></div><div draggable="false" class="cv-day dow6 d2026-03-14 d03-14 d14 instance2 future" aria-label="14" aria-selected="false" aria-dropeffect="none"><div class="cv-day-number"><!----> 14</div></div><div draggable="false" class="cv-day dow0 d2026-03-15 d03-15 d15 instance3 future" aria-label="15" aria-selected="false" aria-dropeffect="none"><div class="cv-day-number"><!----> 15</div></div></div></div><div class="cv-week week3 ws2026-03-16"><div class="cv-weeknumber"><span>12</span></div><div class="cv-weekdays"><div draggable="false" class="cv-day dow1 d2026-03-16 d03-16 d16 instance3 future" aria-label="16" aria-selected="false" aria-dropeffect="none"><div class="cv-day-number"><!----> 16</div></div><div draggable="false" class="cv-day dow2 d2026-03-17 d03-17 d17 instance3 future" aria-label="17" aria-selected="false" aria-dropeffect="none"><div class="cv-day-number"><!----> 17</div></div><div draggable="false" class="cv-day dow3 d2026-03-18 d03-18 d18 instance3 future" aria-label="18" aria-selected="false" aria-dropeffect="none"><div class="cv-day-number"><!----> 18</div></div><div draggable="false" class="cv-day dow4 d2026-03-19 d03-19 d19 instance3 future" aria-label="19" aria-selected="false" aria-dropeffect="none"><div class="cv-day-number"><!----> 19</div></div><div draggable="false" class="cv-day dow5 d2026-03-20 d03-20 d20 instance3 future" aria-label="20" aria-selected="false" aria-dropeffect="none"><div class="cv-day-number"><!----> 20</div></div><div draggable="false" class="cv-day dow6 d2026-03-21 d03-21 d21 instance3 future" aria-label="21" aria-selected="false" aria-dropeffect="none"><div class="cv-day-number"><!----> 21</div></div><div draggable="false" class="cv-day dow0 d2026-03-22 d03-22 d22 instance4 future" aria-label="22" aria-selected="false" aria-dropeffect="none"><div class="cv-day-number"><!----> 22</div></div></div></div></div></div><!----><!----><span class="v-card__underlay"></span></div><!----><!----></div></div></div></main><nav class="v-navigation-drawer v-navigation-drawer--left v-navigation-drawer--active v-theme--light" style="left: 0px; z-index: 1004; transform: translateX(0px); position: fixed; height: calc(100% - 104px); top: 104px; bottom: 0px; width: 256px;"><!----><!----><div class="v-navigation-drawer__content"><div class="v-list v-list--nav v-theme--light bg-transparent v-list--density-default v-list--one-line" tabindex="0" role="list"><a href="/settings" tabindex="-2" class="v-list-item v-list-item--link v-list-item--nav v-theme--light v-list-item--density-default v-list-item--one-line v-list-item--rounded v-list-item--variant-text" role="link"><span class="v-list-item__overlay"></span><span class="v-list-item__underlay"></span><div class="v-list-item__prepend"><div class="v-avatar v-theme--light bg-primary v-avatar--density-default v-avatar--size-default v-avatar--variant-flat">V<!----><span class="v-avatar__underlay"></span></div><div class="v-list-item__spacer"></div></div><div class="v-list-item__content" data-no-activator=""><!----><!----><div class="v-list-item-title">Vladd</div><div class="v-list-item-subtitle">Vladd's Space</div></div><!----></a><hr class="v-divider v-theme--light" style="border-style: solid;" aria-orientation="horizontal" role="separator"><a href="/" tabindex="-2" class="v-list-item v-list-item--link v-list-item--nav v-theme--light v-list-item--density-default v-list-item--one-line v-list-item--rounded v-list-item--variant-text" role="link" component="[object Object]"><span class="v-list-item__overlay"></span><span class="v-list-item__underlay"></span><div class="v-list-item__prepend"><!----><i class="fa-solid fa-book v-icon notranslate v-theme--light v-icon--size-default" aria-hidden="true" density="default"></i><div class="v-list-item__spacer"></div></div><div class="v-list-item__content" data-no-activator=""><div class="v-list-item-title">Home</div><!----><!----></div><!----></a><a href="/advanced-search" tabindex="-2" class="v-list-item v-list-item--link v-list-item--nav v-theme--light v-list-item--density-default v-list-item--one-line v-list-item--rounded v-list-item--variant-text" role="link" component="[object Object]"><span class="v-list-item__overlay"></span><span class="v-list-item__underlay"></span><div class="v-list-item__prepend"><!----><i class="fa-solid fa-magnifying-glass v-icon notranslate v-theme--light v-icon--size-default" aria-hidden="true" density="default"></i><div class="v-list-item__spacer"></div></div><div class="v-list-item__content" data-no-activator=""><div class="v-list-item-title">Поиск</div><!----><!----></div><!----></a><a href="/mealplan" aria-current="page" tabindex="-2" class="v-list-item v-list-item--active v-list-item--link v-list-item--nav v-theme--light v-list-item--density-default v-list-item--one-line v-list-item--rounded v-list-item--variant-text" role="link" component="[object Object]"><span class="v-list-item__overlay"></span><span class="v-list-item__underlay"></span><div class="v-list-item__prepend"><!----><i class="fa-solid fa-calendar-days v-icon notranslate v-theme--light v-icon--size-default" aria-hidden="true" density="default"></i><div class="v-list-item__spacer"></div></div><div class="v-list-item__content" data-no-activator=""><div class="v-list-item-title">Планирование блюд</div><!----><!----></div><!----></a><a href="/shopping" tabindex="-2" class="v-list-item v-list-item--link v-list-item--nav v-theme--light v-list-item--density-default v-list-item--one-line v-list-item--rounded v-list-item--variant-text" role="link" component="[object Object]"><span class="v-list-item__overlay"></span><span class="v-list-item__underlay"></span><div class="v-list-item__prepend"><!----><i class="fa-solid fa-cart-shopping v-icon notranslate v-theme--light v-icon--size-default" aria-hidden="true" density="default"></i><div class="v-list-item__spacer"></div></div><div class="v-list-item__content" data-no-activator=""><div class="v-list-item-title">Shopping</div><!----><!----></div><!----></a><a href="/recipe/import" tabindex="-2" class="v-list-item v-list-item--link v-list-item--nav v-theme--light v-list-item--density-default v-list-item--one-line v-list-item--rounded v-list-item--variant-text" role="link" component="[object Object]"><span class="v-list-item__overlay"></span><span class="v-list-item__underlay"></span><div class="v-list-item__prepend"><!----><i class="fas fa-globe v-icon notranslate v-theme--light v-icon--size-default" aria-hidden="true" density="default"></i><div class="v-list-item__spacer"></div></div><div class="v-list-item__content" data-no-activator=""><div class="v-list-item-title">Импорт</div><!----><!----></div><!----></a><a href="/books" tabindex="-2" class="v-list-item v-list-item--link v-list-item--nav v-theme--light v-list-item--density-default v-list-item--one-line v-list-item--rounded v-list-item--variant-text" role="link" component="[object Object]"><span class="v-list-item__overlay"></span><span class="v-list-item__underlay"></span><div class="v-list-item__prepend"><!----><i class="fa-solid fa-book-bookmark v-icon notranslate v-theme--light v-icon--size-default" aria-hidden="true" density="default"></i><div class="v-list-item__spacer"></div></div><div class="v-list-item__content" data-no-activator=""><div class="v-list-item-title">Книги</div><!----><!----></div><!----></a><a href="/database" tabindex="-2" class="v-list-item v-list-item--link v-list-item--nav v-theme--light v-list-item--density-default v-list-item--one-line v-list-item--rounded v-list-item--variant-text" role="link" component="[object Object]"><span class="v-list-item__overlay"></span><span class="v-list-item__underlay"></span><div class="v-list-item__prepend"><!----><i class="fa-solid fa-folder-tree v-icon notranslate v-theme--light v-icon--size-default" aria-hidden="true" density="default"></i><div class="v-list-item__spacer"></div></div><div class="v-list-item__content" data-no-activator=""><div class="v-list-item-title">База данных</div><!----><!----></div><!----></a><hr class="v-divider v-theme--light" style="border-style: solid;" aria-orientation="horizontal" role="separator"><div tabindex="-2" class="v-list-item v-list-item--link v-list-item--nav v-theme--light v-list-item--density-default v-list-item--one-line v-list-item--rounded v-list-item--variant-text" role="listitem" aria-haspopup="dialog"><span class="v-list-item__overlay"></span><span class="v-list-item__underlay"></span><div class="v-list-item__prepend"><!----><i class="fa-solid fa-calendar-plus v-icon notranslate v-theme--light v-icon--size-default" aria-hidden="true" density="default"></i><div class="v-list-item__spacer"></div></div><div class="v-list-item__content" data-no-activator=""><!----><!---->Автопланировщик <!----><!----></div><!----></div><div tabindex="-2" class="v-list-item v-list-item--link v-list-item--nav v-theme--light v-list-item--density-default v-list-item--one-line v-list-item--rounded v-list-item--variant-text" role="listitem" aria-haspopup="dialog"><span class="v-list-item__overlay"></span><span class="v-list-item__underlay"></span><div class="v-list-item__prepend"><!----><i class="fa-solid fa-calendar-days v-icon notranslate v-theme--light v-icon--size-default" aria-hidden="true" density="default"></i><div class="v-list-item__spacer"></div></div><div class="v-list-item__content" data-no-activator=""><!----><!---->Calendar</div><!----></div><!----><div class="v-list-subheader"><div class="v-list-subheader__text">Настройки</div></div><div class="v-list-item v-list-item--nav v-theme--light v-list-item--density-default v-list-item--one-line v-list-item--rounded v-list-item--variant-text" role="listitem"><!----><span class="v-list-item__underlay"></span><!----><div class="v-list-item__content" data-no-activator=""><!----><!----><div class="v-input v-input--horizontal v-input--center-affix v-input--density-default v-theme--light v-locale--is-ltr v-input--dirty v-text-field v-select v-select--single v-select--selected"><!----><div class="v-input__control"><div class="v-field v-field--active v-field--appended v-field--center-affix v-field--dirty v-field--variant-filled v-theme--light v-locale--is-ltr" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="menu-v-3" aria-owns="menu-v-3"><div class="v-field__overlay"></div><div class="v-field__loader"><div class="v-progress-linear v-theme--light v-locale--is-ltr" style="top: 0px; height: 0px; --v-progress-linear-height: 2px;" role="progressbar" aria-hidden="true" aria-valuemin="0" aria-valuemax="100"><!----><div class="v-progress-linear__background"></div><div class="v-progress-linear__buffer" style="width: 0%;"></div><div class="v-progress-linear__indeterminate"><div class="v-progress-linear__indeterminate long"></div><div class="v-progress-linear__indeterminate short"></div></div><!----></div></div><!----><div class="v-field__field" data-no-activator=""><label class="v-label v-field-label v-field-label--floating" aria-hidden="false" for="input-v-5"><!---->Период</label><label class="v-label v-field-label" id="input-v-5-label" aria-hidden="true"><!---->Период</label><!----><div class="v-field__input" data-no-activator=""><select hidden=""><option selected="" value="week"></option><option value="month"></option><option value="year"></option></select><!----><!----><div class="v-select__selection"><span class="v-select__selection-text">Неделя<!----></span></div><input size="1" role="combobox" type="text" aria-labelledby="input-v-5-label" id="input-v-5" aria-describedby="input-v-5-messages" inputmode="none" aria-expanded="false" aria-controls="menu-v-3" value="Неделя"></div><!----></div><!----><div class="v-field__append-inner"><!----><i class="fas fa-caret-down v-icon notranslate v-theme--light v-icon--size-default v-select__menu-icon" aria-hidden="true"></i><!----></div><div class="v-field__outline"><!----><!----></div></div></div><!----><div id="input-v-5-messages" class="v-input__details" role="alert" aria-live="polite"><div class="v-messages"><div class="v-messages__message">Показать недели, месяца или годы</div></div><!----></div></div><div class="v-input v-input--horizontal v-input--center-affix v-input--density-default v-theme--light v-locale--is-ltr v-input--dirty v-text-field v-select v-select--single v-select--selected"><!----><div class="v-input__control"><div class="v-field v-field--active v-field--appended v-field--center-affix v-field--dirty v-field--variant-filled v-theme--light v-locale--is-ltr" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="menu-v-9" aria-owns="menu-v-9"><div class="v-field__overlay"></div><div class="v-field__loader"><div class="v-progress-linear v-theme--light v-locale--is-ltr" style="top: 0px; height: 0px; --v-progress-linear-height: 2px;" role="progressbar" aria-hidden="true" aria-valuemin="0" aria-valuemax="100"><!----><div class="v-progress-linear__background"></div><div class="v-progress-linear__buffer" style="width: 0%;"></div><div class="v-progress-linear__indeterminate"><div class="v-progress-linear__indeterminate long"></div><div class="v-progress-linear__indeterminate short"></div></div><!----></div></div><!----><div class="v-field__field" data-no-activator=""><label class="v-label v-field-label v-field-label--floating" aria-hidden="false" for="input-v-11"><!---->Периоды</label><label class="v-label v-field-label" id="input-v-11-label" aria-hidden="true"><!---->Периоды</label><!----><div class="v-field__input" data-no-activator=""><select hidden=""><option value="1"></option><option value="2"></option><option selected="" value="3"></option><option value="4"></option></select><!----><!----><div class="v-select__selection"><span class="v-select__selection-text">3<!----></span></div><input size="1" role="combobox" type="text" aria-labelledby="input-v-11-label" id="input-v-11" aria-describedby="input-v-11-messages" inputmode="none" aria-expanded="false" aria-controls="menu-v-9" value="3"></div><!----></div><!----><div class="v-field__append-inner"><!----><i class="fas fa-caret-down v-icon notranslate v-theme--light v-icon--size-default v-select__menu-icon" aria-hidden="true"></i><!----></div><div class="v-field__outline"><!----><!----></div></div></div><!----><div id="input-v-11-messages" class="v-input__details" role="alert" aria-live="polite"><div class="v-messages"><div class="v-messages__message">Сколько периодов показать</div></div><!----></div></div><div class="v-input v-input--horizontal v-input--center-affix v-input--density-default v-theme--light v-locale--is-ltr v-input--dirty v-text-field v-select v-select--single v-select--selected"><!----><div class="v-input__control"><div class="v-field v-field--active v-field--appended v-field--center-affix v-field--dirty v-field--variant-filled v-theme--light v-locale--is-ltr" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="menu-v-15" aria-owns="menu-v-15"><div class="v-field__overlay"></div><div class="v-field__loader"><div class="v-progress-linear v-theme--light v-locale--is-ltr" style="top: 0px; height: 0px; --v-progress-linear-height: 2px;" role="progressbar" aria-hidden="true" aria-valuemin="0" aria-valuemax="100"><!----><div class="v-progress-linear__background"></div><div class="v-progress-linear__buffer" style="width: 0%;"></div><div class="v-progress-linear__indeterminate"><div class="v-progress-linear__indeterminate long"></div><div class="v-progress-linear__indeterminate short"></div></div><!----></div></div><!----><div class="v-field__field" data-no-activator=""><label class="v-label v-field-label v-field-label--floating" aria-hidden="false" for="input-v-17"><!---->Начальный день недели</label><label class="v-label v-field-label" id="input-v-17-label" aria-hidden="true"><!---->Начальный день недели</label><!----><div class="v-field__input" data-no-activator=""><select hidden=""><option value="0"></option><option selected="" value="1"></option><option value="2"></option><option value="3"></option><option value="4"></option><option value="5"></option><option value="6"></option></select><!----><!----><div class="v-select__selection"><span class="v-select__selection-text">Понедельник<!----></span></div><input size="1" role="combobox" type="text" aria-labelledby="input-v-17-label" id="input-v-17" aria-describedby="input-v-17-messages" inputmode="none" aria-expanded="false" aria-controls="menu-v-15" value="Понедельник"></div><!----></div><!----><div class="v-field__append-inner"><!----><i class="fas fa-caret-down v-icon notranslate v-theme--light v-icon--size-default v-select__menu-icon" aria-hidden="true"></i><!----></div><div class="v-field__outline"><!----><!----></div></div></div><!----><div id="input-v-17-messages" class="v-input__details" role="alert" aria-live="polite"><div class="v-messages"><div class="v-messages__message">Начальный день недели</div></div><!----></div></div><div class="v-input v-input--horizontal v-input--center-affix v-input--density-default v-theme--light v-locale--is-ltr v-input--dirty v-checkbox"><!----><div class="v-input__control"><div class="v-selection-control v-selection-control--dirty v-selection-control--density-default v-checkbox-btn"><div class="v-selection-control__wrapper"><!----><div class="v-selection-control__input"><i class="fas fa-check-square v-icon notranslate v-theme--light v-icon--size-default" aria-hidden="true"></i><input checked="" id="checkbox-v-20" aria-disabled="false" aria-label="Номер недели" type="checkbox" aria-describedby="checkbox-v-20-messages" value="true"></div></div><label class="v-label v-label--clickable" for="checkbox-v-20"><!---->Номер недели</label></div></div><!----><div id="checkbox-v-20-messages" class="v-input__details" role="alert" aria-live="polite"><div class="v-messages"><div class="v-messages__message">Показать номера недель?</div></div><!----></div></div></div><!----></div></div></div><div class="v-navigation-drawer__append"><div class="v-list v-list--nav v-theme--light bg-transparent v-list--density-default v-list--one-line" tabindex="0" role="list"><a href="/settings" tabindex="-2" class="v-list-item v-list-item--link v-list-item--nav v-theme--light v-list-item--density-default v-list-item--one-line v-list-item--rounded v-list-item--variant-text" role="link"><span class="v-list-item__overlay"></span><span class="v-list-item__underlay"></span><div class="v-list-item__prepend"><!----><i class="fas fa-sliders v-icon notranslate v-theme--light v-icon--size-default" aria-hidden="true" density="default"></i><div class="v-list-item__spacer"></div></div><div class="v-list-item__content" data-no-activator=""><div class="v-list-item-title">Настройки</div><!----><!----></div><!----></a><div tabindex="-2" class="v-list-item v-list-item--link v-list-item--nav v-theme--light v-list-item--density-default v-list-item--one-line v-list-item--rounded v-list-item--variant-text" role="listitem" aria-haspopup="dialog"><span class="v-list-item__overlay"></span><span class="v-list-item__underlay"></span><div class="v-list-item__prepend"><!----><i class="fa-solid fa-heart v-icon notranslate v-theme--light v-icon--size-default" aria-hidden="true" density="default"></i><div class="v-list-item__spacer"></div></div><div class="v-list-item__content" data-no-activator=""><!----><!----> Tandoor 2.5.3 <!----><!----></div><!----></div></div></div></nav><!----><!----><div><!----><!----><!----><!----><!----><!----></div></div></div></div>
+
+
+<link rel="stylesheet" href="/static/vue3/assets/i18n-CQ_-xevV.91b65547edec.css">
+<link rel="stylesheet" href="/static/vue3/assets/VCheckbox-CvH8ekHL.016ed8d222c4.css">
+<link rel="stylesheet" href="/static/vue3/assets/ModelSelect-C7MF0wVq.60e1075e0ca3.css">
+<link rel="stylesheet" href="/static/vue3/assets/VNumberInput-DowUXfJY.bb8e0d08e749.css">
+<link rel="stylesheet" href="/static/vue3/assets/VSheet-B07QgQE8.f3740f0cd14b.css">
+<link rel="stylesheet" href="/static/vue3/assets/VPicker-B7cB3kJg.9b7ecf0db4ac.css">
+<link rel="stylesheet" href="/static/vue3/assets/VDateInput-D7ccNmmE.416f37eed8a4.css">
+<link rel="stylesheet" href="/static/vue3/assets/BtnCopy-Czf-fUM7.50a7466d956f.css">
+<link rel="stylesheet" href="/static/vue3/assets/VWindowItem-CWv03gfN.ddad20bc51ba.css">
+<link rel="stylesheet" href="/static/vue3/assets/VAlert-BDbtqfCV.dc047a0f7e2c.css">
+<link rel="stylesheet" href="/static/vue3/assets/VBottomSheet-DdQCqddX.b773a7b6f265.css">
+<link rel="stylesheet" href="/static/vue3/assets/main-Bpi0cE3q.4a932cafda1d.css">
+<script type="module" crossorigin="" src="/static/vue3/assets/main-Dq5GTD4P.b8db863336c4.js"></script>
+<link href="/static/vue3/assets/i18n-CijRtB0V.f0af45dd00b8.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script">
+<link href="/static/vue3/assets/VClosableCardTitle.vue_vue_type_script_setup_true_lang-CjwVOtqy.49c0d7b1daae.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script">
+<link href="/static/vue3/assets/VCheckbox-8HeYhLAe.319fd8b2d2dd.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script">
+<link href="/static/vue3/assets/ModelSelect.vue_vue_type_style_index_1_lang-Db5BBpxM.d17f0dadfdde.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script">
+<link href="/static/vue3/assets/MealPlanStore-CoLZ0ykn.bb65b254e297.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script">
+<link href="/static/vue3/assets/VForm-BUoZ5OZo.9995ae020c52.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script">
+<link href="/static/vue3/assets/VNumberInput-CTjWODfv.4dc450e5e165.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script">
+<link href="/static/vue3/assets/VDateInput-DeHBtBhX.c2646c16422d.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script">
+<link href="/static/vue3/assets/BtnCopy.vue_vue_type_script_setup_true_lang-D17jgyZ2.93136352e4d2.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script">
+<link href="/static/vue3/assets/useDjangoUrls-Cn5pT73N.371c2a14fb84.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script">
+<link href="/static/vue3/assets/logic_utils-DuyEUvIW.033c7cdb2c3d.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script">
+<link href="/static/vue3/assets/VContainer-BwJ-CwR8.c006e7f71d20.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script">
+<link href="/static/vue3/assets/VWindowItem-C3_lLxmW.33331a953dbb.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script">
+<link href="/static/vue3/assets/VAlert-fo7ZE8Rw.408d3f35ba64.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script">
+<link href="/static/vue3/assets/VBottomSheet-DPh3Z-3-.f6fa2c341ee5.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script">
+<link href="/static/vue3/assets/vue.esm-bundler-DHTaAQny.196777622afe.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script">
+<link href="/static/vue3/assets/RecipeImage.vue_vue_type_script_setup_true_lang-Dha5Mo16.6beb4bd7cc1d.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script">
+<link href="/static/vue3/assets/ModelEditDialog.vue_vue_type_script_setup_true_lang-D5F8-YaH.685bca8db953.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script">
+<link href="/static/vue3/assets/_plugin-vue_export-helper-DlAUqK2U.25e3a5dcaf00.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script">
+<link href="/static/vue3/assets/VPicker-DCtHpbIT.12ea1bb40e76.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script">
+<link href="/static/vue3/assets/VSheet-qQglfXZM.de99ef1de6dd.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script">
+
+<script type="application/javascript">
+    localStorage.setItem('BASE_PATH', "https://app.tandoor.dev")
+
+
+    window.addEventListener("load", () => {
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("/service-worker.js", {scope: "https://app.tandoor.dev" + '/'}).then(function (reg) {
+            }).catch(function (err) {
+                console.warn('Error whilst registering service worker', err);
+            });
+        } else {
+            console.warn('service worker not in navigator');
+        }
+     });
+
+
+</script>
+
+
+
+
+<div class="v-overlay-container"></div></body></html>

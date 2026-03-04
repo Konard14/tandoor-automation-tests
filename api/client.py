@@ -1,48 +1,17 @@
+# api/client.py
 from __future__ import annotations
 
-import os
 from dataclasses import dataclass
-from typing import Any, Dict, Optional
-from urllib.parse import urljoin
-
+from typing import Any, Dict, Optional, List, Union
 import requests
-
-try:
-    from dotenv import load_dotenv
-except ImportError:
-    load_dotenv = None
 
 
 class TandoorAPIError(Exception):
+    """Единая ошибка API-клиента Tandoor."""
     pass
 
 
-def _load_env() -> None:
-    if load_dotenv:
-        load_dotenv()
-
-
-def _strip(s: Optional[str]) -> str:
-    return (s or "").strip()
-
-
-def _api_root(base_url: str) -> str:
-    """
-    Accepts:
-      https://app.tandoor.dev
-      https://app.tandoor.dev/
-      https://app.tandoor.dev/api
-      https://app.tandoor.dev/api/
-    Returns:
-      https://app.tandoor.dev/api/
-    """
-    b = (base_url or "").strip()
-    if not b:
-        return ""
-    b = b.rstrip("/")
-    if b.endswith("/api"):
-        return b + "/"
-    return b + "/api/"
+JsonDict = Dict[str, Any]
 
 
 @dataclass
@@ -52,110 +21,105 @@ class TandoorAPIClient:
     timeout: int = 30
 
     def __post_init__(self) -> None:
-        self.api_root = _api_root(self.base_url)
+        self.base_url = self.base_url.rstrip("/")
         self.session = requests.Session()
+        self.session.headers.update(
+            {
+                "Authorization": f"Bearer {self.token}",
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+            }
+        )
 
-    def _headers(self, has_json: bool = False) -> Dict[str, str]:
-        h = {
-            "Accept": "application/json",
-            "Authorization": f"Bearer {self.token}",
-        }
-        if has_json:
-            h["Content-Type"] = "application/json"
-        return h
+    def _url(self, path: str) -> str:
+        if not path.startswith("/"):
+            path = "/" + path
+        return self.base_url + path
+
+    def _raise_api_error(self, resp: requests.Response) -> None:
+        body = ""
+        try:
+            body = resp.text
+        except Exception:
+            body = "<cannot read body>"
+        raise TandoorAPIError(
+            f"{resp.status_code} {resp.reason} for url: {resp.url}\nBody: {body}"
+        )
 
     def _request(
         self,
         method: str,
         path: str,
         *,
-        params: Optional[Dict[str, Any]] = None,
-        json: Optional[Dict[str, Any]] = None,
-        expected_status: Optional[list[int]] = None,
-    ) -> Any:
-        # ВАЖНО: всегда бьём в API root (/api/)
-        url = urljoin(self.api_root, path.lstrip("/"))
+        params: Optional[JsonDict] = None,
+        json: Optional[JsonDict] = None,
+    ) -> requests.Response:
+        resp = self.session.request(
+            method=method,
+            url=self._url(path),
+            params=params,
+            json=json,
+            timeout=self.timeout,
+        )
+        if resp.status_code >= 400:
+            self._raise_api_error(resp)
+        return resp
 
-        try:
-            resp = self.session.request(
-                method=method.upper(),
-                url=url,
-                headers=self._headers(has_json=(json is not None)),
-                params=params,
-                json=json,
-                timeout=self.timeout,
-                allow_redirects=False,
-            )
-        except Exception as e:
-            raise TandoorAPIError(f"Network error calling {method} {url}: {e}") from e
-
-        # Если редирект на /accounts/login/ — токен не приняли ИЛИ ты не в API
-        if resp.status_code in (301, 302, 303, 307, 308):
-            loc = resp.headers.get("Location", "")
-            raise TandoorAPIError(
-                f"Redirect {resp.status_code} for {method} {url}. Location: {loc}. "
-                f"Usually means auth failed (token not accepted) or URL is not API."
-            )
-
-        if expected_status is None:
-            expected_status = [200, 201, 204]
-
-        if resp.status_code not in expected_status:
-            payload = (resp.text or "").strip()
-            raise TandoorAPIError(
-                f"API error {resp.status_code} for {method} {url}. Response: {payload}"
-            )
-
+    def get_json(self, path: str, params: Optional[JsonDict] = None) -> Any:
+        resp = self._request("GET", path, params=params)
         if not resp.text:
             return None
+        return resp.json()
 
-        try:
-            return resp.json()
-        except ValueError:
-            return resp.text
+    def post_json(self, path: str, payload: JsonDict) -> Any:
+        resp = self._request("POST", path, json=payload)
+        if not resp.text:
+            return None
+        return resp.json()
 
-    # -------- API methods --------
+    def delete(self, path: str) -> None:
+        self._request("DELETE", path)
+        return None
 
-    def get_recipes(self, page_size: int = 1) -> Any:
-        # В API Tandoor обычно: /api/recipe/
-        return self._request("GET", "recipe/", params={"page_size": page_size}, expected_status=[200])
+    # -------------------------
+    # Recipes (под твои тесты)
+    # -------------------------
 
-    def create_recipe(self, data: Dict[str, Any]) -> Dict[str, Any]:
-        # Создание рецепта — POST /api/recipe/
-        return self._request("POST", "recipe/", json=data, expected_status=[200, 201])
+    def list_recipes(self, page_size: int = 20) -> Union[List[JsonDict], JsonDict]:
+        """
+        Тесты могут ожидать либо dict с results, либо просто список — вернём как API отдаёт.
+        """
+        params = {"page_size": page_size} if page_size else None
+        return self.get_json("/api/recipe/", params=params)
+
+    def get_recipes(self, page_size: int = 20) -> Union[List[JsonDict], JsonDict]:
+        # тест явно вызывает get_recipes(page_size=5)
+        return self.list_recipes(page_size=page_size)
+
+    def create_recipe(self, data: JsonDict) -> JsonDict:
+        """
+        Тест передаёт data = {name, description, steps:[...]}
+        На сервер нужно отправить это как есть (и ничего не переименовывать).
+        """
+        resp = self.post_json("/api/recipe/", data)
+        if not isinstance(resp, dict):
+            raise TandoorAPIError("Unexpected create_recipe response (not a dict).")
+        return resp
 
     def delete_recipe(self, recipe_id: int) -> None:
-        return self._request(
-            "DELETE",
-            f"recipe/{recipe_id}/",
-            expected_status=[204],
-        )
+        self.delete(f"/api/recipe/{recipe_id}/")
 
-    def test_connection(self) -> None:
-        print("Checking API connection...")
-        data = self.get_recipes(page_size=1)
-        if isinstance(data, dict) and "count" in data:
-            print(f"OK ✅ Connected. Recipes count: {data.get('count')}")
-        else:
-            print("OK ✅ Connected. Response:")
-            print(data)
+    # -------------------------
+    # Meal plans
+    # -------------------------
 
+    def list_mealplans(self) -> List[JsonDict]:
+        data = self.get_json("/api/meal-plan/")
+        if isinstance(data, dict) and "results" in data:
+            return data["results"]
+        if isinstance(data, list):
+            return data
+        return []
 
-def main() -> None:
-    _load_env()
-    base_url = _strip(os.getenv("BASE_URL"))
-    token = _strip(os.getenv("TANDOOR_TOKEN"))
-
-    print("BASE_URL:", base_url)
-    print("TOKEN starts:", (token[:10] + "…") if token else "(empty)")
-    print("API root:", _api_root(base_url))
-
-    if not token:
-        raise SystemExit("TANDOOR_TOKEN is empty in .env")
-
-    client = TandoorAPIClient(base_url=base_url, token=token)
-    client.test_connection()
-
-
-if __name__ == "__main__":
-    main()
+    def delete_mealplan(self, mealplan_id: int) -> None:
+        self.delete(f"/api/meal-plan/{mealplan_id}/")

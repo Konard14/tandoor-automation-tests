@@ -1,452 +1,497 @@
-git
-status
-git
-add.
-git
-commit - m
-"Finalize API client, POM pages, UI smoke tests; prepare meal plan flow"
-git
-push - u
-origin
-main
 # pages/meal_plan_page.py
 from __future__ import annotations
 
+import os
 import time
-from pathlib import Path
-from typing import List, Tuple, Optional
+from typing import Iterable, Tuple, List
 
-from selenium.webdriver import ActionChains, Keys
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webdriver import WebDriver, WebElement
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+from selenium.common.exceptions import (
+    ElementNotInteractableException,
+    StaleElementReferenceException,
+)
 
 Locator = Tuple[str, str]
 
 
 class MealPlanPage:
     """
-    PageObject для /mealplan (Tandoor).
+    Страница планирования блюд:
+    https://app.tandoor.dev/mealplan
     """
 
-    URL_PATH = "/mealplan"
+    URL = "https://app.tandoor.dev/mealplan"
 
-    # ---------- базовые локаторы страницы ----------
-    # Ячейки календаря (vue-cal style) - из твоего HTML видно cv-day today/past/future
-    CALENDAR_DAY_TODAY: List[Locator] = [
-        (By.CSS_SELECTOR, ".cv-day.today"),
-        (By.CSS_SELECTOR, ".cv-day.dow2.today"),  # иногда
-    ]
-    CALENDAR_ANY_DAY: List[Locator] = [
-        (By.CSS_SELECTOR, ".cv-day.future"),
-        (By.CSS_SELECTOR, ".cv-day.today"),
-        (By.CSS_SELECTOR, ".cv-day.past"),
-        (By.CSS_SELECTOR, ".cv-day"),
+    # ---------- calendar ----------
+    CALENDAR_ROOT_CANDIDATES: List[Locator] = [
+        (By.CSS_SELECTOR, "div.cv-wrapper"),
+        (By.CSS_SELECTOR, "div[aria-label='Calendar'].cv-wrapper"),
     ]
 
-    # Плюс в верхнем баре (если вдруг на другой сборке открывает создание)
-    TOPBAR_PLUS_BUTTONS: List[Locator] = [
-        (By.XPATH, "//header//button[.//i[contains(@class,'fa-plus')]]"),
-        (By.CSS_SELECTOR, "header button.v-btn--icon:has(i.fa-plus)"),
+    CALENDAR_DAY_CANDIDATES: List[Locator] = [
+        (By.CSS_SELECTOR, "div.cv-day.today"),
+        (By.CSS_SELECTOR, "div.cv-day.future"),
+        (By.CSS_SELECTOR, "div.cv-day.past"),
+        (By.CSS_SELECTOR, "div.cv-day"),
     ]
 
-    # ---------- overlay / dialog ----------
-    ACTIVE_OVERLAY: List[Locator] = [
-        (By.CSS_SELECTOR, ".v-overlay.v-overlay--active.v-dialog"),
-        (By.CSS_SELECTOR, ".v-overlay.v-overlay--active[role='dialog']"),
-        (By.XPATH, "//div[contains(@class,'v-overlay') and contains(@class,'v-overlay--active')][@role='dialog']"),
+    CALENDAR_ITEM_CANDIDATES: List[Locator] = [
+        (By.CSS_SELECTOR, "div.v-card.cv-item"),
+        (By.CSS_SELECTOR, "div.cv-item"),
     ]
 
-    # ---------- поля формы (multiselect) ----------
-    RECIPE_INPUT_CANDIDATES: List[Locator] = [
-        (By.CSS_SELECTOR, ".v-overlay--active input.multiselect-search[aria-placeholder='Рецепт']"),
-        (By.XPATH, "//div[contains(@class,'v-overlay--active')]//input[contains(@class,'multiselect-search') and @aria-placeholder='Рецепт']"),
+    # ---------- dialogs / overlays ----------
+    ACTIVE_OVERLAY_CONTENT_CANDIDATES: List[Locator] = [
+        (By.CSS_SELECTOR, "div.v-overlay.v-overlay--active div.v-overlay__content"),
+        (By.CSS_SELECTOR, "div.v-dialog.v-overlay.v-overlay--active div.v-overlay__content"),
+        (By.CSS_SELECTOR, "div[role='dialog']"),
     ]
 
-    MEALTYPE_INPUT_CANDIDATES: List[Locator] = [
-        (By.CSS_SELECTOR, ".v-overlay--active input.multiselect-search[aria-placeholder='Тип питания']"),
-        (By.XPATH, "//div[contains(@class,'v-overlay--active')]//input[contains(@class,'multiselect-search') and @aria-placeholder='Тип питания']"),
+    # В ТВОЁМ UI кнопка называется "+ СОЗДАТЬ", а не "Save/Сохранить".
+    BTN_SUBMIT_CANDIDATES: List[Locator] = [
+        # 1) прямой текст "Создать / Create" (на кнопке/ссылке/диве)
+        (By.XPATH, "//*[self::button or self::a or self::div or self::span][contains(normalize-space(.), 'СОЗДАТЬ') or contains(normalize-space(.), 'Создать') or contains(normalize-space(.), 'Create')]"),
+        # 2) вариант: текст внутри span у vuetify-кнопок
+        (By.XPATH, "//button[.//span[contains(normalize-space(.), 'СОЗДАТЬ') or contains(normalize-space(.), 'Создать') or contains(normalize-space(.), 'Create')]]"),
+        # 3) role=button
+        (By.XPATH, "//*[@role='button'][contains(normalize-space(.), 'СОЗДАТЬ') or contains(normalize-space(.), 'Создать') or contains(normalize-space(.), 'Create')]"),
+        # 4) submit
+        (By.CSS_SELECTOR, "button[type='submit']"),
+        # 5) зелёные success кнопки (на всякий)
+        (By.CSS_SELECTOR, "button.bg-success"),
+        (By.XPATH, "//button[contains(@class,'success') or contains(@class,'bg-success') or contains(@class,'text-success')]"),
+        # 6) плюс-иконка (часто рядом)
+        (By.XPATH, "//button[.//i[contains(@class,'fa-plus') or contains(@class,'mdi-plus') or contains(@class,'plus')]]"),
     ]
 
-    SERVINGS_INPUT_CANDIDATES: List[Locator] = [
-        (By.CSS_SELECTOR, ".v-overlay--active input[inputmode='decimal']"),
-        (By.XPATH, "//div[contains(@class,'v-overlay--active')]//label[contains(.,'Порции')]/following::input[1]"),
+    # Delete
+    BTN_DELETE_CANDIDATES: List[Locator] = [
+        (By.XPATH, ".//button[.//span[contains(.,'Удалить') or contains(.,'Delete')]]"),
+        (By.XPATH, ".//button[contains(.,'Удалить') or contains(.,'Delete')]"),
+        (By.CSS_SELECTOR, "button.bg-delete"),
+        (By.CSS_SELECTOR, "button[class*='delete']"),
+        (By.XPATH, ".//button[.//i[contains(@class,'trash') or contains(@class,'fa-trash') or contains(@class,'mdi-delete')]]"),
     ]
 
-    SAVE_BTN_CANDIDATES: List[Locator] = [
-        (By.XPATH, "//div[contains(@class,'v-overlay--active')]//button[.//span[contains(.,'Создать') or contains(.,'Create') or contains(.,'Save') or contains(.,'Сохран')]]"),
-        (By.XPATH, "//button[.//span[contains(.,'Создать') or contains(.,'Create') or contains(.,'Save') or contains(.,'Сохран')]]"),
+    # Confirm delete
+    BTN_CONFIRM_DELETE_CANDIDATES: List[Locator] = [
+        (By.XPATH, ".//button[.//span[contains(.,'Да') or contains(.,'Yes') or contains(.,'Удалить') or contains(.,'Delete')]]"),
+        (By.XPATH, ".//button[contains(.,'Да') or contains(.,'Yes') or contains(.,'Удалить') or contains(.,'Delete')]"),
+        (By.XPATH, ".//button[@aria-label='Delete' or @aria-label='Удалить']"),
     ]
 
-    # ---------- удаление ----------
-    # Кнопка удалить в диалоге просмотра/редактирования записи
-    DELETE_BTN_CANDIDATES: List[Locator] = [
-        (By.XPATH, "//div[contains(@class,'v-overlay--active')]//button[.//i[contains(@class,'fa-trash')]]"),
-        (By.XPATH, "//div[contains(@class,'v-overlay--active')]//button[contains(.,'Удалить') or contains(.,'Delete')]"),
-        (By.XPATH, "//button[contains(.,'Удалить') or contains(.,'Delete')]"),
+    TODAY_BTN_CANDIDATES: List[Locator] = [
+        (By.CSS_SELECTOR, "button.currentPeriod"),
+        (By.XPATH, "//button[contains(.,'Сегодня') or contains(.,'Today')]"),
     ]
 
-    # Подтверждение удаления (часто отдельный confirm-диалог)
-    CONFIRM_DELETE_CANDIDATES: List[Locator] = [
-        (By.XPATH, "//div[contains(@class,'v-overlay--active')]//button[contains(.,'Удалить') or contains(.,'Delete') or contains(.,'Да')]"),
-        (By.XPATH, "//button[contains(.,'Удалить') or contains(.,'Delete') or contains(.,'Да')]"),
-    ]
-
-    def __init__(self, driver: WebDriver, base_url: str = "https://app.tandoor.dev"):
+    def __init__(self, driver):
         self.driver = driver
-        self.base_url = base_url.rstrip("/")
+        self.wait = WebDriverWait(driver, 20)
 
-    # ========================= helpers =========================
-
+    # ---------------- basic ----------------
     def open(self) -> "MealPlanPage":
-        self.driver.get(f"{self.base_url}{self.URL_PATH}")
-        self._wait_page_ready()
+        self.driver.get(self.URL)
+        self._find_first(self.CALENDAR_ROOT_CANDIDATES, timeout=25)
         return self
 
-    def _wait_page_ready(self, timeout: int = 25) -> None:
-        WebDriverWait(self.driver, timeout).until(
-            lambda d: d.execute_script("return document.readyState") in ("interactive", "complete")
-        )
-        time.sleep(0.2)
-
-    def _dump_debug(self, prefix: str = "debug_mealplan") -> None:
-        root = Path.cwd()
+    def is_opened(self) -> bool:
         try:
-            (root / f"{prefix}.html").write_text(self.driver.page_source, encoding="utf-8")
+            self._find_first(self.CALENDAR_ROOT_CANDIDATES, timeout=3)
+            return True
         except Exception:
-            pass
-        try:
-            self.driver.save_screenshot(str(root / f"{prefix}.png"))
-        except Exception:
-            pass
+            return False
 
-    def _find_first(self, locators: List[Locator], timeout: int = 10) -> WebElement:
-        last_err: Optional[Exception] = None
-        for loc in locators:
-            try:
-                return WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located(loc))
-            except Exception as e:
-                last_err = e
-        raise last_err or AssertionError("Не смог найти элемент по локаторам")
+    # ---------------- create ----------------
+    def open_create_form(self) -> "MealPlanPage":
+        if not self.is_opened():
+            self.open()
 
-    def _find_clickable(self, locators: List[Locator], timeout: int = 10) -> WebElement:
-        last_err: Optional[Exception] = None
-        for loc in locators:
-            try:
-                return WebDriverWait(self.driver, timeout).until(EC.element_to_be_clickable(loc))
-            except Exception as e:
-                last_err = e
-        raise last_err or AssertionError("Не смог найти кликабельный элемент по локаторам")
+        # иногда помогает "Сегодня"
+        self._click_first(self.TODAY_BTN_CANDIDATES, timeout=2)
+        time.sleep(0.3)
 
-    def _safe_click(self, el: WebElement) -> None:
-        try:
-            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", el)
-        except Exception:
-            pass
+        day = self._find_first(self.CALENDAR_DAY_CANDIDATES, timeout=15, clickable=True)
+        self._scroll_center(day)
 
         try:
-            el.click()
-            return
+            day.click()
         except Exception:
-            pass
+            ActionChains(self.driver).move_to_element(day).pause(0.1).click().perform()
 
-        try:
-            self.driver.execute_script("arguments[0].click();", el)
-            return
-        except Exception:
-            pass
+        overlay = self._get_active_overlay_content(timeout=12)
+        if overlay is None:
+            self._dump_debug("debug_open_create_fail")
+            raise AssertionError("Не открылся диалог создания Meal Plan. См. debug_open_create_fail.*")
 
-        ActionChains(self.driver).move_to_element(el).click().perform()
-
-    def _safe_double_click(self, el: WebElement) -> None:
-        try:
-            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", el)
-        except Exception:
-            pass
-        ActionChains(self.driver).move_to_element(el).double_click().perform()
-
-    def _overlay_present(self, timeout: int = 2) -> bool:
-        for loc in self.ACTIVE_OVERLAY:
-            try:
-                WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located(loc))
-                return True
-            except Exception:
-                continue
-        return False
-
-    def _overlay_el(self, timeout: int = 10) -> WebElement:
-        last_err: Optional[Exception] = None
-        for loc in self.ACTIVE_OVERLAY:
-            try:
-                return WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located(loc))
-            except Exception as e:
-                last_err = e
-        raise last_err or AssertionError("Не нашёл активный overlay/dialog")
-
-    @staticmethod
-    def _xpath_literal(s: str) -> str:
-        if "'" not in s:
-            return f"'{s}'"
-        if '"' not in s:
-            return f'"{s}"'
-        parts = s.split("'")
-        return "concat(" + ", \"'\", ".join([f"'{p}'" for p in parts]) + ")"
-
-    def _map_meal_type(self, meal_type: str) -> str:
-        mt = (meal_type or "").strip().lower()
-        mapping = {
-            "breakfast": "Завтрак",
-            "lunch": "Обед",
-            "dinner": "Ужин",
-            "snack": "Перекус",
-        }
-        return mapping.get(mt, meal_type)
-
-    def _select_from_multiselect(self, input_candidates: List[Locator], value: str, timeout: int = 10) -> None:
-        overlay = self._overlay_el(timeout=10)
-
-        # найти input в overlay
-        inp = None
-        last_err = None
-        for loc in input_candidates:
-            try:
-                inp = WebDriverWait(self.driver, timeout).until(
-                    lambda d: overlay.find_element(*loc)  # type: ignore[arg-type]
-                )
-                break
-            except Exception as e:
-                last_err = e
-
-        if inp is None:
-            raise last_err or AssertionError("Не нашёл multiselect input")
-
-        self._safe_click(inp)
-
-        # очистка и ввод
-        try:
-            inp.send_keys(Keys.CONTROL, "a")
-            inp.send_keys(Keys.BACKSPACE)
-        except Exception:
-            pass
-        inp.send_keys(value)
-
-        # клик по опции
-        exact_opt = (
-            ".//li[contains(@class,'multiselect-option') and "
-            "(.//span[normalize-space()=%s] or normalize-space()=%s)]"
-        )
-        contains_opt = (
-            ".//li[contains(@class,'multiselect-option') and "
-            "(contains(normalize-space(.), %s) or .//span[contains(normalize-space(.), %s)])]"
-        )
-
-        try:
-            opt = WebDriverWait(self.driver, timeout).until(
-                lambda d: overlay.find_element(
-                    By.XPATH, exact_opt % (self._xpath_literal(value), self._xpath_literal(value))
-                )
-            )
-            self._safe_click(opt)
-            return
-        except Exception:
-            opt = WebDriverWait(self.driver, timeout).until(
-                lambda d: overlay.find_element(
-                    By.XPATH, contains_opt % (self._xpath_literal(value), self._xpath_literal(value))
-                )
-            )
-            self._safe_click(opt)
-
-    # ========================= actions =========================
-
-    def open_create_form(self) -> None:
-        """
-        В твоей разметке диалог "Новое - Планирование блюд" появляется
-        от взаимодействия с календарём (клик/двойной клик по дню).
-        Поэтому:
-        1) если overlay уже есть — ок
-        2) пробуем через клик по today
-        3) пробуем double click по today
-        4) пробуем любой доступный день
-        5) в конце — пробуем topbar plus (на случай другой сборки)
-        """
-        if self._overlay_present(timeout=1):
-            return
-
-        # 1) click today
-        try:
-            day = self._find_clickable(self.CALENDAR_DAY_TODAY, timeout=6)
-            self._safe_click(day)
-            if self._overlay_present(timeout=4):
-                return
-        except Exception:
-            pass
-
-        # 2) double click today
-        try:
-            day = self._find_first(self.CALENDAR_DAY_TODAY, timeout=3)
-            self._safe_double_click(day)
-            if self._overlay_present(timeout=4):
-                return
-        except Exception:
-            pass
-
-        # 3) click any day
-        try:
-            day = self._find_clickable(self.CALENDAR_ANY_DAY, timeout=6)
-            self._safe_click(day)
-            if self._overlay_present(timeout=4):
-                return
-        except Exception:
-            pass
-
-        # 4) double click any day
-        try:
-            day = self._find_first(self.CALENDAR_ANY_DAY, timeout=3)
-            self._safe_double_click(day)
-            if self._overlay_present(timeout=4):
-                return
-        except Exception:
-            pass
-
-        # 5) topbar plus (fallback)
-        try:
-            btn = self._find_clickable(self.TOPBAR_PLUS_BUTTONS, timeout=3)
-            self._safe_click(btn)
-            if self._overlay_present(timeout=4):
-                return
-        except Exception:
-            pass
-
-        self._dump_debug("debug_open_create_form")
-        raise AssertionError(
-            "Не смог открыть форму создания Meal Plan (overlay/dialog не появился). "
-            "Создал debug_open_create_form.png/html в корне проекта."
-        )
+        return self
 
     def create_meal_plan(
         self,
         meal_type: str,
         recipe_name: str,
         servings: int = 1,
-        add_to_shopping_list: bool = False,
+        add_to_shopping_list: bool = True,
     ) -> "MealPlanPage":
         self.open_create_form()
+        overlay = self._get_active_overlay_content(timeout=10)
+        if overlay is None:
+            self._dump_debug("debug_overlay_missing_on_create")
+            raise AssertionError("Не найден активный overlay после открытия формы создания.")
 
-        meal_type_ui = self._map_meal_type(meal_type)
+        # Recipe
+        self._set_model_select_by_label(
+            overlay=overlay,
+            label_texts=("Рецепт", "Recipe"),
+            value=recipe_name,
+        )
 
-        # Тип питания + рецепт
-        self._select_from_multiselect(self.MEALTYPE_INPUT_CANDIDATES, meal_type_ui)
-        self._select_from_multiselect(self.RECIPE_INPUT_CANDIDATES, recipe_name)
+        # Meal type
+        self._set_model_select_by_label(
+            overlay=overlay,
+            label_texts=("Прием", "Приём", "Тип", "Meal", "Meal Type", "Meal type"),
+            value=meal_type,
+        )
 
-        # Порции
-        try:
-            inp = self._find_first(self.SERVINGS_INPUT_CANDIDATES, timeout=5)
-            self._safe_click(inp)
-            inp.send_keys(Keys.CONTROL, "a")
-            inp.send_keys(Keys.BACKSPACE)
-            inp.send_keys(str(servings))
-        except Exception:
-            pass
+        # Servings
+        self._set_number_by_label(
+            overlay=overlay,
+            label_texts=("Порц", "Servings", "Serving"),
+            value=servings,
+        )
 
-        # add_to_shopping_list: в этой форме может отсутствовать — не валим тест
-        _ = add_to_shopping_list
+        # Shopping list checkbox/switch
+        self._set_checkbox_by_label(
+            overlay=overlay,
+            label_texts=("Список покуп", "Shopping", "Add to shopping"),
+            checked=add_to_shopping_list,
+        )
 
-        # Создать
-        try:
-            btn = self._find_clickable(self.SAVE_BTN_CANDIDATES, timeout=10)
-            self._safe_click(btn)
-        except Exception:
-            self._dump_debug("debug_create_click")
-            raise AssertionError(
-                "Не смог нажать 'Создать' в форме Meal Plan. "
-                "Создал debug_create_click.png/html в корне проекта."
-            )
+        # SUBMIT: "+ СОЗДАТЬ"
+        if not self._click_first(self.BTN_SUBMIT_CANDIDATES, root=overlay, timeout=10):
+            # fallback: иногда кнопка вне overlay content
+            if not self._click_first(self.BTN_SUBMIT_CANDIDATES, root=None, timeout=5):
+                self._dump_debug("debug_submit_btn_not_found")
+                raise AssertionError("Не найдена кнопка '+ СОЗДАТЬ / Create'. См. debug_submit_btn_not_found.*")
 
-        # дождаться закрытия диалога
-        try:
-            # инвиз любых overlay locator
-            for loc in self.ACTIVE_OVERLAY:
-                WebDriverWait(self.driver, 12).until(EC.invisibility_of_element_located(loc))
-        except Exception:
-            # не всегда успевает — слегка подождём
-            time.sleep(0.5)
-
+        time.sleep(1.2)
         return self
 
+    # ---------------- delete ----------------
     def delete_meal_plan_by_recipe(self, recipe_name: str) -> "MealPlanPage":
-        """
-        Удаление записи meal plan через UI:
-        1) найти элемент на календаре, где есть текст recipe_name
-        2) клик -> откроется overlay с записью
-        3) нажать Удалить
-        4) подтвердить (если появится confirm)
-        5) убедиться, что текста recipe_name больше нет (мягко)
-        """
-        # 1) найти “ивент” по тексту
-        # В разных версиях это может быть div/span внутри календаря.
-        event_candidates: List[Locator] = [
-            (By.XPATH, f"//main//*[contains(normalize-space(.), {self._xpath_literal(recipe_name)})]"),
-            (By.XPATH, f"//div[contains(@class,'cv-wrapper')]//*[contains(normalize-space(.), {self._xpath_literal(recipe_name)})]"),
-        ]
+        if not self.is_opened():
+            self.open()
 
+        item = self._find_calendar_item_by_text(recipe_name)
+        if item is None:
+            self._dump_debug("debug_item_not_found")
+            raise AssertionError(f"Не найден item с текстом '{recipe_name}'. См. debug_item_not_found.*")
+
+        self._scroll_center(item)
         try:
-            ev = self._find_clickable(event_candidates, timeout=12)
-            self._safe_click(ev)
+            item.click()
         except Exception:
-            self._dump_debug("debug_delete_find_event")
-            raise AssertionError(
-                f"Не смог найти meal plan в календаре по названию рецепта: {recipe_name}. "
-                "Создал debug_delete_find_event.png/html."
-            )
+            ActionChains(self.driver).move_to_element(item).pause(0.1).click().perform()
 
-        # 2) дождаться overlay (открылась карточка/редактор)
-        try:
-            self._overlay_el(timeout=10)
-        except Exception:
-            self._dump_debug("debug_delete_no_overlay")
-            raise AssertionError(
-                "Кликнул по найденному элементу, но overlay с записью не открылся. "
-                "Создал debug_delete_no_overlay.png/html."
-            )
+        overlay = self._get_active_overlay_content(timeout=10)
+        if overlay is None:
+            self._dump_debug("debug_open_item_fail")
+            raise AssertionError("Не открылся диалог при клике по item. См. debug_open_item_fail.*")
 
-        # 3) удалить
-        try:
-            del_btn = self._find_clickable(self.DELETE_BTN_CANDIDATES, timeout=8)
-            self._safe_click(del_btn)
-        except Exception:
-            self._dump_debug("debug_delete_no_deletebtn")
-            raise AssertionError(
-                "Overlay открылся, но кнопку 'Удалить' не нашёл/не смог нажать. "
-                "Создал debug_delete_no_deletebtn.png/html."
-            )
+        if not self._click_first(self.BTN_DELETE_CANDIDATES, root=overlay, timeout=10):
+            if not self._click_first(self.BTN_DELETE_CANDIDATES, root=None, timeout=5):
+                self._dump_debug("debug_delete_btn_not_found")
+                raise AssertionError("Не найдена кнопка Удалить/Delete. См. debug_delete_btn_not_found.*")
 
-        # 4) confirm (если появился)
-        try:
-            if self._overlay_present(timeout=1):
-                # иногда confirm — это тоже overlay; пробуем нажать ещё раз "Удалить/Да"
-                btn = self._find_clickable(self.CONFIRM_DELETE_CANDIDATES, timeout=4)
-                self._safe_click(btn)
-        except Exception:
-            # если confirm не было — ок
-            pass
+        overlay2 = self._get_active_overlay_content(timeout=6) or overlay
+        self._click_first(self.BTN_CONFIRM_DELETE_CANDIDATES, root=overlay2, timeout=10)
 
-        # 5) дождаться закрытия overlay
-        try:
-            for loc in self.ACTIVE_OVERLAY:
-                WebDriverWait(self.driver, 12).until(EC.invisibility_of_element_located(loc))
-        except Exception:
-            time.sleep(0.5)
-
-        # 6) мягкая проверка отсутствия текста recipe_name на странице
-        try:
-            WebDriverWait(self.driver, 8).until_not(
-                EC.presence_of_element_located(
-                    (By.XPATH, f"//main//*[contains(normalize-space(.), {self._xpath_literal(recipe_name)})]")
-                )
-            )
-        except Exception:
-            # не валим: в календаре могут быть кеш/ленивая перерисовка, но метод удаления уже отработал.
-            pass
-
+        time.sleep(1.0)
         return self
+
+    # ---------------- internals ----------------
+    def _find_calendar_item_by_text(self, text: str):
+        xpath = (
+            f"//div[contains(@class,'cv-item') or contains(@class,'v-card')]"
+            f"[.//span[contains(normalize-space(.), {self._xp(text)})] or contains(normalize-space(.), {self._xp(text)})]"
+        )
+        try:
+            return self.driver.find_element(By.XPATH, xpath)
+        except Exception:
+            return None
+
+    def _get_active_overlay_content(self, timeout: int = 10):
+        end = time.time() + timeout
+        while time.time() < end:
+            for loc in self.ACTIVE_OVERLAY_CONTENT_CANDIDATES:
+                try:
+                    el = self.driver.find_element(*loc)
+                    if el.is_displayed():
+                        return el
+                except Exception:
+                    continue
+            time.sleep(0.1)
+        return None
+
+    # ---------------- internals: form helpers ----------------
+    def _set_model_select_by_label(self, overlay, label_texts: Tuple[str, ...], value: str):
+        inp = self._find_input_by_label_like(overlay, label_texts)
+        if inp is None:
+            return
+
+        self._scroll_center(inp)
+        self._safe_click(inp)
+
+        try:
+            inp.send_keys(Keys.CONTROL, "a")
+            inp.send_keys(Keys.DELETE)
+        except Exception:
+            pass
+
+        inp.send_keys(value)
+        time.sleep(0.4)
+
+        option_xpath = (
+            f"//div[contains(@class,'v-overlay') or contains(@class,'v-menu') or contains(@class,'v-list')]"
+            f"//*[contains(normalize-space(.), {self._xp(value)})]"
+        )
+        try:
+            opt = WebDriverWait(self.driver, 6).until(EC.element_to_be_clickable((By.XPATH, option_xpath)))
+            self._safe_click(opt)
+        except Exception:
+            try:
+                inp.send_keys(Keys.ENTER)
+            except Exception:
+                pass
+
+    def _set_number_by_label(self, overlay, label_texts: Tuple[str, ...], value: int):
+        container = self._find_input_container_by_label_like(overlay, label_texts)
+        if container is None:
+            return
+
+        inp = self._find_best_interactable_input(container)
+        if inp is None:
+            try:
+                inp = container.find_element(By.CSS_SELECTOR, "input")
+            except Exception:
+                return
+
+        self._scroll_center(inp)
+        self._safe_click(inp)
+
+        try:
+            try:
+                inp.send_keys(Keys.CONTROL, "a")
+                inp.send_keys(Keys.DELETE)
+            except Exception:
+                pass
+            inp.send_keys(str(value))
+            return
+        except ElementNotInteractableException:
+            pass
+        except Exception:
+            pass
+
+        self._set_value_js(inp, str(value))
+
+    def _set_checkbox_by_label(self, overlay, label_texts: Tuple[str, ...], checked: bool):
+        for t in label_texts:
+            try:
+                cb = overlay.find_element(
+                    By.XPATH,
+                    f".//label[contains(.,{self._xp(t)})]/preceding::input[@type='checkbox'][1] | "
+                    f".//label[contains(.,{self._xp(t)})]/following::input[@type='checkbox'][1]"
+                )
+                current = cb.is_selected()
+                if current != checked:
+                    try:
+                        lbl = overlay.find_element(By.XPATH, f".//label[contains(.,{self._xp(t)})]")
+                        self._safe_click(lbl)
+                    except Exception:
+                        self._safe_click(cb)
+                return
+            except Exception:
+                continue
+
+    # ---------- finders ----------
+    def _find_input_by_label_like(self, root, label_texts: Tuple[str, ...]):
+        container = self._find_input_container_by_label_like(root, label_texts)
+        if container is None:
+            return None
+
+        candidates = [
+            (By.CSS_SELECTOR, "input[role='combobox']"),
+            (By.CSS_SELECTOR, "input[type='search']"),
+            (By.CSS_SELECTOR, "input[type='text']"),
+            (By.CSS_SELECTOR, "input"),
+        ]
+        for loc in candidates:
+            try:
+                el = container.find_element(*loc)
+                return el
+            except Exception:
+                continue
+        return None
+
+    def _find_input_container_by_label_like(self, root, label_texts: Tuple[str, ...]):
+        for t in label_texts:
+            # label внутри v-input
+            try:
+                return root.find_element(
+                    By.XPATH,
+                    f".//label[contains(normalize-space(.), {self._xp(t)})]/ancestor::*[contains(@class,'v-input')][1]"
+                )
+            except Exception:
+                pass
+
+            # label for="id"
+            try:
+                label = root.find_element(By.XPATH, f".//label[contains(normalize-space(.), {self._xp(t)}) and @for]")
+                for_id = label.get_attribute("for")
+                if for_id:
+                    inp = root.find_element(By.ID, for_id)
+                    return inp.find_element(By.XPATH, "./ancestor::*[contains(@class,'v-input')][1]")
+            except Exception:
+                pass
+
+        return None
+
+    def _find_best_interactable_input(self, container):
+        try_locs = [
+            (By.CSS_SELECTOR, "input[type='number']"),
+            (By.CSS_SELECTOR, "input[inputmode='numeric']"),
+            (By.CSS_SELECTOR, "input.v-field__input"),
+            (By.CSS_SELECTOR, "input"),
+        ]
+        for loc in try_locs:
+            try:
+                inputs = container.find_elements(*loc)
+            except Exception:
+                continue
+
+            for inp in inputs:
+                try:
+                    if not inp.is_displayed() or not inp.is_enabled():
+                        continue
+                    ro = inp.get_attribute("readonly")
+                    if ro is not None and ro != "false":
+                        continue
+                    return inp
+                except StaleElementReferenceException:
+                    continue
+                except Exception:
+                    continue
+        return None
+
+    # ---------------- helpers ----------------
+    def _scroll_center(self, el):
+        try:
+            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", el)
+            time.sleep(0.1)
+        except Exception:
+            pass
+
+    def _safe_click(self, el):
+        try:
+            el.click()
+            return
+        except Exception:
+            pass
+        try:
+            ActionChains(self.driver).move_to_element(el).pause(0.05).click().perform()
+            return
+        except Exception:
+            pass
+        try:
+            self.driver.execute_script("arguments[0].click();", el)
+        except Exception:
+            pass
+
+    def _set_value_js(self, el, value: str):
+        try:
+            self.driver.execute_script(
+                """
+                const el = arguments[0];
+                const value = arguments[1];
+                el.focus();
+                el.value = value;
+                el.dispatchEvent(new Event('input', { bubbles: true }));
+                el.dispatchEvent(new Event('change', { bubbles: true }));
+                """,
+                el,
+                value,
+            )
+            time.sleep(0.2)
+        except Exception:
+            pass
+
+    def _find_first(self, candidates: Iterable[Locator], timeout: int = 10, clickable: bool = False):
+        last_err = None
+        w = WebDriverWait(self.driver, timeout)
+        for loc in candidates:
+            try:
+                if clickable:
+                    return w.until(EC.element_to_be_clickable(loc))
+                return w.until(EC.presence_of_element_located(loc))
+            except Exception as e:
+                last_err = e
+        if last_err:
+            raise last_err
+        raise AssertionError("Не найден ни один элемент по кандидатам локаторов.")
+
+    def _click_first(self, candidates: Iterable[Locator], timeout: int = 5, root=None) -> bool:
+        end = time.time() + timeout
+        while time.time() < end:
+            for by, sel in candidates:
+                try:
+                    # Ищем сразу список, а не один элемент — так стабильнее
+                    if root is not None:
+                        els = root.find_elements(by, sel)
+                    else:
+                        els = self.driver.find_elements(by, sel)
+
+                    for el in els:
+                        try:
+                            if not el.is_displayed():
+                                continue
+                            self._scroll_center(el)
+                            self._safe_click(el)
+                            return True
+                        except Exception:
+                            continue
+                except Exception:
+                    continue
+            time.sleep(0.1)
+        return False
+
+    def _dump_debug(self, name: str):
+        folder = os.path.join(os.getcwd(), "debug_artifacts")
+        os.makedirs(folder, exist_ok=True)
+
+        html_path = os.path.join(folder, f"{name}.html")
+        png_path = os.path.join(folder, f"{name}.png")
+
+        try:
+            with open(html_path, "w", encoding="utf-8") as f:
+                f.write(self.driver.page_source)
+        except Exception:
+            pass
+
+        try:
+            self.driver.save_screenshot(png_path)
+        except Exception:
+            pass
+
+    @staticmethod
+    def _xp(s: str) -> str:
+        if "'" not in s:
+            return f"'{s}'"
+        if '"' not in s:
+            return f'"{s}"'
+        parts = s.split("'")
+        return "concat(" + ", \"'\", ".join([f"'{p}'" for p in parts]) + ")"
