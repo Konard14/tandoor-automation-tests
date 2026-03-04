@@ -35,3 +35,11 @@ Automation test project for the **Tandoor Recipes** web application.
 ### 1) Install dependencies
 ```bash
 pip install -r requirements.txt
+
+## Allure report
+
+Run:
+```bash
+pytest --alluredir=allure-results
+allure serve allure-results
+![img.png](img.png)
