@@ -3,7 +3,6 @@
 Automation test project for the **Tandoor Recipes** web application.
 
 ## Stack
-
 - Python
 - Pytest
 - Selenium
@@ -28,18 +27,11 @@ Automation test project for the **Tandoor Recipes** web application.
 - Validate via API
 - Delete meal plan
 
-## Project Structure
-
 ## How to run
 
 ### 1) Install dependencies
+> Это команда для терминала (PowerShell / cmd)
+
 ```bash
 pip install -r requirements.txt
-
-## Allure report
-
-Run:
-```bash
-pytest --alluredir=allure-results
-allure serve allure-results
-![img.png](img.png)
+![Allure report](img_3.png)
