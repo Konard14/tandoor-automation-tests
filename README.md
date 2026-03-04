@@ -34,4 +34,4 @@ Automation test project for the **Tandoor Recipes** web application.
 
 ```bash
 pip install -r requirements.txt
-![Allure report](img_3.png)
+![Allure report](img_4.png)
