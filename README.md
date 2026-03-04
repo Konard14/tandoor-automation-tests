@@ -30,8 +30,14 @@ Automation test project for the **Tandoor Recipes** web application.
 ## How to run
 
 ### 1) Install dependencies
-> Это команда для терминала (PowerShell / cmd)
+Это команда для терминала (PowerShell / cmd)
 
 ```bash
 pip install -r requirements.txt
-![img_5.png](img_5.png)
+```
+
+## Allure Report
+
+Пример отчета Allure после запуска тестов:
+
+![Allure report](img_5.png)
